@@ -1,5 +1,5 @@
 ﻿namespace ServicePlace.Model;
-public class Class1
+public class Provider
 {
 
 }
