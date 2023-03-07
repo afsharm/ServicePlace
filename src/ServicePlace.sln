@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicePlace.Model", "Servi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicePlace.Web", "ServicePlace.Web\ServicePlace.Web.csproj", "{356F672A-1C34-4D35-BA01-AC834B1F26E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicePlace.Service", "ServicePlace.Service\ServicePlace.Service.csproj", "{06E35E94-6C7C-4C84-83C2-9F10DBA395DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{356F672A-1C34-4D35-BA01-AC834B1F26E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{356F672A-1C34-4D35-BA01-AC834B1F26E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{356F672A-1C34-4D35-BA01-AC834B1F26E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06E35E94-6C7C-4C84-83C2-9F10DBA395DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06E35E94-6C7C-4C84-83C2-9F10DBA395DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06E35E94-6C7C-4C84-83C2-9F10DBA395DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06E35E94-6C7C-4C84-83C2-9F10DBA395DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
