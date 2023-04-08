@@ -15,4 +15,7 @@ dotnet ef database update --startup-project ../ServicePlace.Web/ServicePlace.Web
 # if `sqlite` does not work after installing vscode-sqlite extension
 sudo apt-get install sqlite3
 sudo apt-get install libsqlite3-dev
+
+# using dotnet watch
+dotnet watch --project src/ServicePlace.Web/ServicePlace.Web.csproj
 ```

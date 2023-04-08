@@ -12,7 +12,7 @@ public class AppService
         _context = context;
     }
 
-    public IEnumerable<Provider> GetAll()
+    public IEnumerable<Provider> GetAllProvider()
     {
         return _context.Providers
             .AsNoTracking()
