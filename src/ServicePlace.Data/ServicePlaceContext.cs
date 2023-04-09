@@ -9,5 +9,6 @@ public class ServicePlaceContext : DbContext
     {
     }
 
+    public DbSet<Service> Services => Set<Service>();
     public DbSet<Provider> Providers => Set<Provider>();
 }

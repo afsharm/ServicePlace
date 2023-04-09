@@ -1,4 +1,5 @@
 using ServicePlace.Data;
+using ServicePlace.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSqlite<ServicePlaceContext>("Data Source=ServicePlace.db");
 
 var app = builder.Build();
+app.CreateDbIfNotExists();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
