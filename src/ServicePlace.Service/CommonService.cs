@@ -44,4 +44,16 @@ public class CommonService
             Name = command.Name
         });
     }
+
+    public async Task<IEnumerable<ProviderDisplay>> GetProviderByServiceIdAsync(int serviceId)
+    {
+        return await _context.Providers
+        .Where(x => x.Service.Id == serviceId)
+            .Select(x => new ProviderDisplay
+            {
+                Id = x.Id,
+                Name = x.Name
+            })
+            .ToListAsync();
+    }
 }
