@@ -33,11 +33,11 @@ public class CommonService
             .ToListAsync();
     }
 
-    public async Task CreateServiceAsync(CreateService createService)
+    public async Task CreateServiceAsync(CreateService command)
     {
         await _context.Services.AddAsync(new Model.Entities.Service
         {
-            Name = createService.Name
+            Name = command.Name
         });
     }
 }

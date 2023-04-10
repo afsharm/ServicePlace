@@ -25,4 +25,7 @@ dotnet run --urls=http://localhost:5101
 # install httprepl
 dotnet tool install -g Microsoft.dotnet-httprepl
 httprepl http://localhost:5101
+
+# define json editor inside httprepl
+pref set editor.command.default /usr/bin/gedit
 ```
