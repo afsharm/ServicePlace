@@ -18,4 +18,11 @@ sudo apt-get install libsqlite3-dev
 
 # using dotnet watch
 dotnet watch --project src/ServicePlace.Web/ServicePlace.Web.csproj
+
+# run on specific port
+dotnet run --urls=http://localhost:5101
+
+# install httprepl
+dotnet tool install -g Microsoft.dotnet-httprepl
+httprepl http://localhost:5101
 ```

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ServicePlace.Model;
+namespace ServicePlace.Model.Entities;
 public class Provider
 {
     public Provider()
