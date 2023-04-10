@@ -1,4 +1,5 @@
 using ServicePlace.Data;
+using ServicePlace.Service;
 using ServicePlace.Web;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSqlite<ServicePlaceContext>("Data Source=ServicePlace.db");
+builder.Services.AddScoped<CommonService>();
 
 var app = builder.Build();
 app.CreateDbIfNotExists();
