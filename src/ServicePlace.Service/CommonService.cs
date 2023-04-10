@@ -5,11 +5,11 @@ using ServicePlace.Model.Queries;
 using ServicePlace.Model.Commands;
 
 namespace ServicePlace.Service;
-public class AppService
+public class CommonService
 {
     private readonly ServicePlaceContext _context;
 
-    public AppService(ServicePlaceContext context)
+    public CommonService(ServicePlaceContext context)
     {
         _context = context;
     }
