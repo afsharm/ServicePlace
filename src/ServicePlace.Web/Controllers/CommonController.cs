@@ -21,17 +21,26 @@ public class CommonController : ControllerBase
         _context = context;
     }
 
-    [HttpGet(Name = "GetServices")]
+    [HttpGet]
+    [Route("Service")]
     public async Task<IEnumerable<ServiceDisplay>> GetServicesAsync()
     {
         var response = await _commonService.GetServicesAsync();
         return response;
     }
 
-    [HttpPost(Name = "CreateService")]
+    [HttpPost]
+    [Route("Service")]
     public async Task CreateServiceAsync(CreateService command)
     {
         await _commonService.CreateServiceAsync(command);
         await _context.SaveChangesAsync();
+    }
+
+    [HttpGet]
+    [Route("Provider")]
+    public async Task<IEnumerable<ProviderDisplay>> GetAllProvidersAsync()
+    {
+        return await _commonService.GetAllProvidersAsync();
     }
 }

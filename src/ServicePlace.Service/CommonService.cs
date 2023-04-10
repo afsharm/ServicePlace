@@ -15,11 +15,15 @@ public class CommonService
         _context = context;
     }
 
-    public IEnumerable<Provider> GetAllProvider()
+    public async Task<IEnumerable<ProviderDisplay>> GetAllProvidersAsync()
     {
-        return _context.Providers
-            .AsNoTracking()
-            .ToList();
+        return await _context.Providers
+            .Select(x => new ProviderDisplay
+            {
+                Id = x.Id,
+                Name = x.Name
+            })
+            .ToListAsync();
     }
 
     public async Task<IEnumerable<ServiceDisplay>> GetServicesAsync()
