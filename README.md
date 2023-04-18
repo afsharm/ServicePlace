@@ -21,11 +21,17 @@ dotnet watch --project src/ServicePlace.Web/ServicePlace.Web.csproj
 
 # run on specific port
 dotnet run --urls=http://localhost:5101
+```
 
+### httprepl
+```
 # install httprepl
 dotnet tool install -g Microsoft.dotnet-httprepl
 httprepl http://localhost:5101
 
 # define json editor inside httprepl
 pref set editor.command.default /usr/bin/gedit
+
+# multiple put
+put 123/abc --no-body
 ```

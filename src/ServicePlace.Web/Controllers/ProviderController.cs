@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ServicePlace.Data;
+using ServicePlace.Model;
 using ServicePlace.Model.Queries;
 using ServicePlace.Service;
 
@@ -30,5 +31,25 @@ public class ProviderController : ControllerBase
     public async Task<IEnumerable<ProviderDisplay>> GetProviderByServiceIdAsync(int serviceId)
     {
         return await _commonService.GetProviderByServiceIdAsync(serviceId);
+    }
+
+    [HttpPut("{id}/{name}")]
+    public async Task<IActionResult> UpdateAsync(int id, string name)
+    {
+        try
+        {
+            await _commonService.UpdateProviderAsync(id, name);
+            await _context.SaveChangesAsync();
+        }
+        catch (NotFoundException)
+        {
+            return NotFound();
+        }
+        catch (System.Exception)
+        {
+            throw;
+        }
+
+        return NoContent();
     }
 }
