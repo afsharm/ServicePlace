@@ -1,5 +1,4 @@
 ﻿using ServicePlace.Data;
-using ServicePlace.Model.Entities;
 using Microsoft.EntityFrameworkCore;
 using ServicePlace.Model.Queries;
 using ServicePlace.Model.Commands;
@@ -43,10 +42,17 @@ public class CommonService
 
     public async Task CreateServiceAsync(CreateService command)
     {
+        ValidateCreateService(command);
+
         await _context.Services.AddAsync(new Model.Entities.Service
         {
             Name = command.Name
         });
+    }
+
+    public void ValidateCreateService(CreateService command)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<IEnumerable<ProviderDisplay>> GetProviderByServiceIdAsync(int serviceId)

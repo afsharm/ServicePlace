@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ServicePlace.Service\ServicePlace.Service.csproj" />
+    <ProjectReference Include="..\ServicePlace.Model\ServicePlace.Model.csproj" />
   </ItemGroup>
 
 </Project>
