@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicePlace.Web", "Service
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicePlace.Service", "ServicePlace.Service\ServicePlace.Service.csproj", "{06E35E94-6C7C-4C84-83C2-9F10DBA395DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicePlace.UnitTest", "ServicePlace.UnitTest\ServicePlace.UnitTest.csproj", "{29B37208-0DA9-4E63-807A-97DA99AC569D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{06E35E94-6C7C-4C84-83C2-9F10DBA395DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06E35E94-6C7C-4C84-83C2-9F10DBA395DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06E35E94-6C7C-4C84-83C2-9F10DBA395DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29B37208-0DA9-4E63-807A-97DA99AC569D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29B37208-0DA9-4E63-807A-97DA99AC569D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29B37208-0DA9-4E63-807A-97DA99AC569D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29B37208-0DA9-4E63-807A-97DA99AC569D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
