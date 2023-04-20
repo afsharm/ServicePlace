@@ -6,12 +6,12 @@ namespace ServicePlace.UnitTest;
 public class CommonServiceTest
 {
     [Fact]
-    public void TestValidateCreate()
+    public void Validate_create_should_not_throw_exception_for_ABC_string()
     {
-        //A
+        //Arrange
         var commonService = new CommonService(null, null);
 
-        //Action
+        //Act
         var createService = new CreateService
         {
             Name = "ABC"
