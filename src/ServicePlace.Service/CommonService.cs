@@ -52,7 +52,8 @@ public class CommonService
 
     public void ValidateCreateService(CreateService command)
     {
-        throw new NotImplementedException();
+        if (command.Name?.Length > 100)
+            throw new Exception();
     }
 
     public async Task<IEnumerable<ProviderDisplay>> GetProviderByServiceIdAsync(int serviceId)
