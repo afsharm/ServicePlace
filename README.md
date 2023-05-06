@@ -21,6 +21,9 @@ dotnet watch --project src/ServicePlace.Web/ServicePlace.Web.csproj
 
 # run on specific port
 dotnet run --urls=http://localhost:5101
+
+# run test
+dotnet test src/ServicePlace.UnitTest/ServicePlace.UnitTest.csproj 
 ```
 
 ### httprepl
