@@ -40,3 +40,8 @@ pref set editor.command.default /usr/bin/gedit
 # multiple put
 put 123/abc --no-body
 ```
+
+## study
+
+EF Core Testing
+https://learn.microsoft.com/en-us/ef/core/testing/
