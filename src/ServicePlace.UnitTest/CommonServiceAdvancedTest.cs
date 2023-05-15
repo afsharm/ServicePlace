@@ -3,9 +3,9 @@ using ServicePlace.Service;
 using ServicePlace.Web.Controllers;
 
 [CollectionDefinition("TransactionalTests")]
-public class CommonServiceDbTest : IClassFixture<TestDatabaseFixture>
+public class CommonServiceAdvancedTest : IClassFixture<TestDatabaseFixture>
 {
-    public CommonServiceDbTest(TestDatabaseFixture fixture)
+    public CommonServiceAdvancedTest(TestDatabaseFixture fixture)
         => Fixture = fixture;
 
     public TestDatabaseFixture Fixture { get; }

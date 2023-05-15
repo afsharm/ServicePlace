@@ -4,9 +4,9 @@ using ServicePlace.Model.Commands;
 namespace ServicePlace.UnitTest;
 
 [CollectionDefinition("TransactionalTests")]
-public class CommonServiceTest : IClassFixture<TestDatabaseFixture>
+public class CommonServiceTestBasic : IClassFixture<TestDatabaseFixture>
 {
-    public CommonServiceTest(TestDatabaseFixture fixture)
+    public CommonServiceTestBasic(TestDatabaseFixture fixture)
         => Fixture = fixture;
 
     public TestDatabaseFixture Fixture { get; }
