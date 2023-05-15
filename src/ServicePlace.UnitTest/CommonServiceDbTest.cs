@@ -2,9 +2,9 @@ using ServicePlace.Model.Commands;
 using ServicePlace.Service;
 using ServicePlace.Web.Controllers;
 
-public class ServiceControllerTest : IClassFixture<TestDatabaseFixture>
+public class CommonServiceDbTest : IClassFixture<TestDatabaseFixture>
 {
-    public ServiceControllerTest(TestDatabaseFixture fixture)
+    public CommonServiceDbTest(TestDatabaseFixture fixture)
         => Fixture = fixture;
 
     public TestDatabaseFixture Fixture { get; }
