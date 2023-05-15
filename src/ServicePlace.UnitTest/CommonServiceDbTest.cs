@@ -2,6 +2,7 @@ using ServicePlace.Model.Commands;
 using ServicePlace.Service;
 using ServicePlace.Web.Controllers;
 
+[CollectionDefinition("TransactionalTests")]
 public class CommonServiceDbTest : IClassFixture<TestDatabaseFixture>
 {
     public CommonServiceDbTest(TestDatabaseFixture fixture)
