@@ -3,13 +3,20 @@ using ServicePlace.Model.Commands;
 
 namespace ServicePlace.UnitTest;
 
-public class CommonServiceTest
+[CollectionDefinition("TransactionalTests")]
+public class CommonServiceTest : IClassFixture<TestDatabaseFixture>
 {
+    public CommonServiceTest(TestDatabaseFixture fixture)
+        => Fixture = fixture;
+
+    public TestDatabaseFixture Fixture { get; }
+
     [Fact]
     public void Validate_create_should_not_throw_exception_for_ABC_string()
     {
         //Arrange
-        var commonService = new CommonService(null, null);
+        using var context = Fixture.CreateContext();
+        var commonService = new CommonService(context, null);
 
         //Act
         var createService = new CreateService
@@ -18,7 +25,7 @@ public class CommonServiceTest
         };
 
         //Assert
-        var exception = Record.Exception(() => commonService.ValidateCreateService(createService));
+        var exception = Record.ExceptionAsync(() => commonService.CreateServiceAsync(createService));
         Assert.Null(exception);
     }
 
@@ -28,7 +35,8 @@ public class CommonServiceTest
     public void different_invalid_items_are_not_allowed(string value)
     {
         //Arrange
-        var commonService = new CommonService(null, null);
+        using var context = Fixture.CreateContext();
+        var commonService = new CommonService(context, null);
 
         //Act
         var createService = new CreateService
@@ -37,6 +45,6 @@ public class CommonServiceTest
         };
 
         //Assert
-        Assert.Throws<Exception>(() => commonService.ValidateCreateService(createService));
+        Assert.ThrowsAsync<Exception>(() => commonService.CreateServiceAsync(createService));
     }
 }

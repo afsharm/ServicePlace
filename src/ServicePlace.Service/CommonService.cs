@@ -50,7 +50,7 @@ public class CommonService
         });
     }
 
-    public void ValidateCreateService(CreateService command)
+    void ValidateCreateService(CreateService command)
     {
         if (command.Name?.Length > 100)
             throw new Exception();
