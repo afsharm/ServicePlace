@@ -27,11 +27,14 @@ dotnet run --urls=http://localhost:5101
 # run test
 dotnet test src/ServicePlace.UnitTest/ServicePlace.UnitTest.csproj 
 
-# install code coverage
+# install code coverage & report tools
 dotnet tool install --global dotnet-coverage
+dotnet tool install --global dotnet-reportgenerator-globaltool
 
-# generate code coverage report (in the test directory)
-dotnet coverage collect dotnet test --output-format cobertura
+# (in the test artifacts directory)
+mkdir artifacts
+dotnet coverage collect dotnet test ../src/ServicePlace.UnitTest/ --output-format cobertura
+reportgenerator -reports:output.cobertura.xml -targetdir:.
 ```
 
 ### httprepl
