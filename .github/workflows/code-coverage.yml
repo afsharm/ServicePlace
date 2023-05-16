@@ -45,3 +45,16 @@ jobs:
     - name: Generate Report
       run: |
         dotnet reportgenerator -reports:${{ github.workspace }}/Tests/Coverage.cobertura.xml -targetdir:"${{ github.workspace }}/Tests/coveragereport" -reporttypes:Html -assemblyfilters:+MinimalApi
+
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: dist-without-markdown
+        path: |
+          dist
+          !dist/**/*.md
+    - name: Archive code coverage results
+      uses: actions/upload-artifact@v3
+      with:
+        name: code-coverage-report
+        path: ${{ github.workspace }}/Tests/
