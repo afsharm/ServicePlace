@@ -46,8 +46,14 @@ public class ServiceControllerTest : IClassFixture<TestDatabaseFixture>
         Assert.NotNull(result);
     }
 
-    [Fact]
-    public async Task GetService_increases()
+    [Theory]
+    [InlineData("0")]
+    [InlineData("1")]
+    [InlineData("5")]
+    [InlineData("12")]
+    [InlineData("43")]
+    [InlineData("183")]
+    public async Task GetService_increases(string value)
     {
         //Arrange
         using var context = Fixture.CreateContext();
@@ -59,13 +65,20 @@ public class ServiceControllerTest : IClassFixture<TestDatabaseFixture>
         //Act
         var resultBefore = await serviceController.GetServicesAsync();
         var countBefore = resultBefore.Count();
-        var createService = new CreateService { Name = Guid.NewGuid().ToString() };
-        await serviceController.CreateServiceAsync(createService);
+
+        var limit = int.Parse(value);
+
+        for (var i = 0; i < limit; i++)
+        {
+            var createService = new CreateService { Name = Guid.NewGuid().ToString() };
+            await serviceController.CreateServiceAsync(createService);
+        }
+
         var resultAfter = await serviceController.GetServicesAsync();
         var countAfter = resultAfter.Count();
         var countDiff = countAfter - countBefore;
 
         //Assert
-        Assert.Equal(1, countDiff);
+        Assert.Equal(limit, countDiff);
     }
 }
