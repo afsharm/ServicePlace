@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Logging;
 using Moq;
+using ServicePlace.Model.Commands;
 using ServicePlace.Service;
 using ServicePlace.Web.Controllers;
 
@@ -43,5 +44,28 @@ public class ServiceControllerTest : IClassFixture<TestDatabaseFixture>
 
         //Assert
         Assert.NotNull(result);
+    }
+
+    [Fact]
+    public async Task GetService_increases()
+    {
+        //Arrange
+        using var context = Fixture.CreateContext();
+        var loggerCommonService = Mock.Of<ILogger<CommonService>>();
+        var commonService = new CommonService(context, loggerCommonService);
+        var loggerServiceController = Mock.Of<ILogger<ServiceController>>();
+        var serviceController = new ServiceController(loggerServiceController, commonService, context);
+
+        //Act
+        var resultBefore = await serviceController.GetServicesAsync();
+        var countBefore = resultBefore.Count();
+        var createService = new CreateService { Name = Guid.NewGuid().ToString() };
+        await serviceController.CreateServiceAsync(createService);
+        var resultAfter = await serviceController.GetServicesAsync();
+        var countAfter = resultBefore.Count();
+        var countDiff = countAfter - countBefore;
+
+        //Assert
+        Assert.Equal(1, countDiff);
     }
 }
