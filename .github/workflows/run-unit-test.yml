@@ -35,6 +35,4 @@ jobs:
 
     - name: Test
       run: dotnet test src/ServicePlace.UnitTest --no-restore --verbosity normal
-
-    - name: Code Coverage Summary
-      uses: irongut/CodeCoverageSummary@v1.3.0
+      
