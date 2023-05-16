@@ -10,9 +10,9 @@ namespace ServicePlace.Service;
 public class CommonService
 {
     private readonly ServicePlaceContext _context;
-    private readonly ILogger<ServicePlaceContext> _logger;
+    private readonly ILogger<CommonService> _logger;
 
-    public CommonService(ServicePlaceContext context, ILogger<ServicePlaceContext> logger)
+    public CommonService(ServicePlaceContext context, ILogger<CommonService> logger)
     {
         _context = context;
         _logger = logger;
