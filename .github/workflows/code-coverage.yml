@@ -1,0 +1,47 @@
+name: unit test
+
+on:
+  push:
+  pull_request:
+    branches: [ main ]
+    paths:
+    - '**.cs'
+    - '**.csproj'
+
+env:
+  DOTNET_VERSION: '7.0.203' # The .NET SDK version to use
+
+jobs:
+  build:
+
+    name: build-${{matrix.os}}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Install dependencies
+      run: dotnet restore src/ServicePlace.sln
+      
+    - name: Build
+      run: dotnet build src/ServicePlace.sln --configuration Release --no-restore
+
+    - name: Install Required Tools
+      run: |
+        dotnet new tool-manifest
+        dotnet tool install dotnet-reportgenerator-globaltool
+        dotnet tool install dotnet-coverage
+
+    - name: Run the unit tests with code coverage
+      run: dotnet coverage collect dotnet test src/ServicePlace.UnitTest --output ${{ github.workspace }}/Tests/Coverage --output-format cobertura
+
+    - name: Generate Report
+      run: |
+        dotnet reportgenerator -reports:${{ github.workspace }}/Tests/Coverage.cobertura.xml -targetdir:"${{ github.workspace }}/Tests/coveragereport" -reporttypes:Html -assemblyfilters:+MinimalApi
