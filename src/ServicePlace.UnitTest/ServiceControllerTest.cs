@@ -62,7 +62,7 @@ public class ServiceControllerTest : IClassFixture<TestDatabaseFixture>
         var createService = new CreateService { Name = Guid.NewGuid().ToString() };
         await serviceController.CreateServiceAsync(createService);
         var resultAfter = await serviceController.GetServicesAsync();
-        var countAfter = resultBefore.Count();
+        var countAfter = resultAfter.Count();
         var countDiff = countAfter - countBefore;
 
         //Assert
