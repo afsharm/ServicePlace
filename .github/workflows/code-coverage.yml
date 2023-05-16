@@ -43,8 +43,7 @@ jobs:
       run: dotnet coverage collect dotnet test src/ServicePlace.UnitTest --output ${{ github.workspace }}/Tests/Coverage.cobertura.xml --output-format cobertura
 
     - name: Generate Report
-      run: |
-        reportgenerator -reports:${{ github.workspace }}/Tests/Coverage.cobertura.xml -targetdir:"${{ github.workspace }}/Tests/coveragereport" -reporttypes:Html -assemblyfilters:+MinimalApi
+      run: dotnet reportgenerator -reports:${{ github.workspace }}/Tests/Coverage.cobertura.xml -targetdir:"${{ github.workspace }}/Tests/coveragereport" -reporttypes:Html -assemblyfilters:+MinimalApi
 
     - name: Archive code coverage results
       uses: actions/upload-artifact@v3
