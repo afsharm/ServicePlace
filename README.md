@@ -26,6 +26,12 @@ dotnet run --urls=http://localhost:5101
 
 # run test
 dotnet test src/ServicePlace.UnitTest/ServicePlace.UnitTest.csproj 
+
+# install code coverage
+dotnet tool install --global dotnet-coverage
+
+# generate code coverage report (in the test directory)
+dotnet coverage collect dotnet test --output-format cobertura
 ```
 
 ### httprepl
@@ -45,3 +51,8 @@ put 123/abc --no-body
 
 EF Core Testing
 https://learn.microsoft.com/en-us/ef/core/testing/
+
+
+.Net code covergae 
+https://dotnetthoughts.net/generating-code-coverage-reports-in-dotnet-core/
+
