@@ -42,7 +42,7 @@ jobs:
     - name: Run the unit tests with code coverage & Generate Report
       run: |
         dotnet coverage collect dotnet test src/ServicePlace.UnitTest --output ${{ github.workspace }}/Tests/Coverage.cobertura.xml --output-format cobertura
-        dotnet reportgenerator -reports:${{ github.workspace }}/Tests/Coverage.cobertura.xml -targetdir:"${{ github.workspace }}/Tests/coveragereport" -reporttypes:Html -assemblyfilters:+MinimalApi
+        dotnet reportgenerator -reports:${{ github.workspace }}/Tests/Coverage.cobertura.xml -targetdir:"${{ github.workspace }}/Tests/coveragereport2" -reporttypes:Html -assemblyfilters:+MinimalApi
 
     - name: Archive code coverage results
       uses: actions/upload-artifact@v3
