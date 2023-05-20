@@ -79,4 +79,9 @@ public class CommonService
         provider.Name = name;
         _context.Providers.Update(provider);
     }
+
+    public Task CreateProviderAsync(CreateProviderCommand? command)
+    {
+        throw new NotImplementedException();
+    }
 }

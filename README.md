@@ -59,3 +59,6 @@ https://learn.microsoft.com/en-us/ef/core/testing/
 .Net code covergae 
 https://dotnetthoughts.net/generating-code-coverage-reports-in-dotnet-core/
 
+
+Best practices for exceptions
+https://learn.microsoft.com/en-us/dotnet/standard/exceptions/best-practices-for-exceptions

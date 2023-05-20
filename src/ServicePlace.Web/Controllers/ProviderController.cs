@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ServicePlace.Data;
 using ServicePlace.Model;
+using ServicePlace.Model.Commands;
 using ServicePlace.Model.Queries;
 using ServicePlace.Service;
 
@@ -51,5 +52,19 @@ public class ProviderController : ControllerBase
         }
 
         return NoContent();
+    }
+
+    [HttpPost]
+    public async Task CreateProviderAsync(CreateProviderCommand? command)
+    {
+        try
+        {
+            await _commonService.CreateProviderAsync(command);
+            await _context.SaveChangesAsync();
+        }
+        catch (System.Exception)
+        {
+            throw;
+        }
     }
 }
