@@ -96,9 +96,8 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     {
         //Arrange
         var controllers = BuildProviderAndServiceController();
-        await controllers.Service.CreateServiceAsync(new CreateService { Name = Guid.NewGuid().ToString() });
-        var serivceId = 1; //todo: should be loaded from previous operation
-        var createProviderCommand = new CreateProviderCommand { ServiceId = serivceId, Name = Guid.NewGuid().ToString() };
+        var result = await controllers.Service.CreateServiceAsync(new CreateService { Name = Guid.NewGuid().ToString() });
+        var createProviderCommand = new CreateProviderCommand { ServiceId = result.ServiceId, Name = Guid.NewGuid().ToString() };
 
         //Action
         var exception = await Record.ExceptionAsync(() => controllers.Provider.CreateProviderAsync(createProviderCommand));
@@ -118,9 +117,8 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     {
         //Arrange
         var controllers = BuildProviderAndServiceController();
-        await controllers.Service.CreateServiceAsync(new CreateService { Name = Guid.NewGuid().ToString() });
-        var serivceId = 1; //todo: should be loaded from previous operation
-        var createProviderCommand = new CreateProviderCommand { ServiceId = serivceId, Name = value };
+        var result = await controllers.Service.CreateServiceAsync(new CreateService { Name = Guid.NewGuid().ToString() });
+        var createProviderCommand = new CreateProviderCommand { ServiceId = result.ServiceId, Name = value };
 
         //Action
         var exception = await Record.ExceptionAsync(() => controllers.Provider.CreateProviderAsync(createProviderCommand));
@@ -140,9 +138,8 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     {
         //Arrange
         var controllers = BuildProviderAndServiceController();
-        await controllers.Service.CreateServiceAsync(new CreateService { Name = Guid.NewGuid().ToString() });
-        var serivceId = 1; //todo: should be loaded from previous operation
-        var createProviderCommand = new CreateProviderCommand { ServiceId = serivceId, Name = value };
+        var result = await controllers.Service.CreateServiceAsync(new CreateService { Name = Guid.NewGuid().ToString() });
+        var createProviderCommand = new CreateProviderCommand { ServiceId = result.ServiceId, Name = value };
 
         //Action
         var exception = await Record.ExceptionAsync(() => controllers.Provider.CreateProviderAsync(createProviderCommand));
@@ -156,10 +153,9 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     {
         //Arrange
         var controllers = BuildProviderAndServiceController();
-        await controllers.Service.CreateServiceAsync(new CreateService { Name = Guid.NewGuid().ToString() });
-        var serivceId = 1; //todo: should be loaded from previous operation
+        var result = await controllers.Service.CreateServiceAsync(new CreateService { Name = Guid.NewGuid().ToString() });
         var name = Guid.NewGuid().ToString();
-        var createProviderCommand = new CreateProviderCommand { ServiceId = serivceId, Name = name };
+        var createProviderCommand = new CreateProviderCommand { ServiceId = result.ServiceId, Name = name };
         await controllers.Provider.CreateProviderAsync(createProviderCommand);
 
         //Action
@@ -174,13 +170,12 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     {
         //Arrange
         var controllers = BuildProviderAndServiceController();
-        await controllers.Service.CreateServiceAsync(new CreateService { Name = Guid.NewGuid().ToString() });
-        var serivceIdFirst = 1; //todo: should be loaded from previous operation
-        var serivceIdSecond = 2; //todo: should be loaded from previous operation
+        var firstResult = await controllers.Service.CreateServiceAsync(new CreateService { Name = Guid.NewGuid().ToString() });
+        var secondResult = await controllers.Service.CreateServiceAsync(new CreateService { Name = Guid.NewGuid().ToString() });
         var name = Guid.NewGuid().ToString();
-        var createProviderCommandFirst = new CreateProviderCommand { ServiceId = serivceIdFirst, Name = name };
+        var createProviderCommandFirst = new CreateProviderCommand { ServiceId = firstResult.ServiceId, Name = name };
         await controllers.Provider.CreateProviderAsync(createProviderCommandFirst);
-        var createProviderCommandSecond = new CreateProviderCommand { ServiceId = serivceIdSecond, Name = name };
+        var createProviderCommandSecond = new CreateProviderCommand { ServiceId = secondResult.ServiceId, Name = name };
 
         //Action
         var exception = await Record.ExceptionAsync(() => controllers.Provider.CreateProviderAsync(createProviderCommandSecond));

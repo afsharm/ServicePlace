@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using ServicePlace.Data;
 using ServicePlace.Model.Commands;
 using ServicePlace.Model.Queries;
+using ServicePlace.Model.Results;
 using ServicePlace.Service;
 
 namespace ServicePlace.Web.Controllers;
@@ -29,9 +30,12 @@ public class ServiceController : ControllerBase
     }
 
     [HttpPost]
-    public async Task CreateServiceAsync(CreateService command)
+    public async Task<CreateServiceResult> CreateServiceAsync(CreateService command)
     {
-        await _commonService.CreateServiceAsync(command);
-        await _context.SaveChangesAsync();
+        var result = await _commonService.CreateServiceAsync(command);
+
+        //SaveChanges is called in the service layer directly in order to get the DB generated Id
+
+        return result;
     }
 }

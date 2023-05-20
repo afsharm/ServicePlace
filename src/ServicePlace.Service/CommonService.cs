@@ -4,6 +4,7 @@ using ServicePlace.Model.Queries;
 using ServicePlace.Model.Commands;
 using ServicePlace.Model;
 using Microsoft.Extensions.Logging;
+using ServicePlace.Model.Results;
 
 namespace ServicePlace.Service;
 
@@ -40,14 +41,22 @@ public class CommonService
             .ToListAsync();
     }
 
-    public async Task CreateServiceAsync(CreateService command)
+    public async Task<CreateServiceResult> CreateServiceAsync(CreateService command)
     {
         ValidateCreateService(command);
-
-        await _context.Services.AddAsync(new Model.Entities.Service
+        var service = new Model.Entities.Service
         {
             Name = command.Name
-        });
+        };
+        await _context.Services.AddAsync(service);
+
+        //doing save changes is necessary here because we need to return database generated id without exposing Entities to upper layers
+        await _context.SaveChangesAsync();
+
+        return new CreateServiceResult
+        {
+            ServiceId = service.Id
+        };
     }
 
     void ValidateCreateService(CreateService command)
