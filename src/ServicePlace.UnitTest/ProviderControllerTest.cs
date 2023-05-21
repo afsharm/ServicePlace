@@ -191,4 +191,23 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
         //Assert
         Assert.Null(exception);
     }
+
+    [Fact]
+    public async Task create_a_provider_should_not_create_an_extra_service()
+    {
+        //Arrange
+        using var context = Fixture.CreateContext();
+        var controllers = BuildProviderAndServiceController(context);
+
+        //Action
+        var createService = new CreateService { Name = Guid.NewGuid().ToString() };
+        var createServiceResult = await controllers.Service.CreateServiceAsync(createService);
+        var existinigServicesBefore = await controllers.Service.GetServicesAsync();
+        var createProviderCommand = new CreateProviderCommand { ServiceId = createServiceResult.ServiceId, Name = Guid.NewGuid().ToString() };
+        await controllers.Provider.CreateProviderAsync(createProviderCommand);
+        var existinigServicesAfter = await controllers.Service.GetServicesAsync();
+
+        //Assert
+        Assert.Equal(existinigServicesBefore.Count(), existinigServicesAfter.Count());
+    }
 }
