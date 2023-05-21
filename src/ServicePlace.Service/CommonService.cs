@@ -97,11 +97,25 @@ public class CommonService
         if (command.ServiceId == null)
             throw new ArgumentNullException("command.ServiceId");
 
+        ValidateProviderName(command.Name);
+
         var newProvider = new Model.Entities.Provider { Name = command.Name, ServiceId = command.ServiceId.Value };
 
         await _context.Providers.AddAsync(newProvider);
         await _context.SaveChangesAsync();
 
         return new CreateProviderResult { ProviderId = newProvider.Id };
+    }
+
+    private void ValidateProviderName(string? name)
+    {
+        if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(name.Trim()))
+            throw new Exception("`name` is null or white space");
+
+        if (name.Trim().Length != name.Length)
+            throw new Exception("`name` should not start or end with space(s)");
+
+        if (name.Length < 3 || name.Length > 100)
+            throw new Exception("`name` should not be smaller than 3 or bigger than 100 characters");
     }
 }
