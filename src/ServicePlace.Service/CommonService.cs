@@ -99,6 +99,9 @@ public class CommonService
 
         ValidateProviderName(command.Name);
 
+        if (await _context.Providers.AnyAsync(x => x.Name == command.Name && x.ServiceId == command.ServiceId))
+            throw new Exception("Duplicate service `name`.");
+
         var newProvider = new Model.Entities.Provider { Name = command.Name, ServiceId = command.ServiceId.Value };
 
         await _context.Providers.AddAsync(newProvider);
