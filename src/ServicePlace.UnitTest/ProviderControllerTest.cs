@@ -116,7 +116,7 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     [InlineData("Sky line")]
     [InlineData("Dr. Brown")]
     [InlineData("Street Beauty")]
-    [InlineData("012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789")]
+    [InlineData("0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789")]
     public async Task CreateProvider_allowed_provider_names_work(string value)
     {
         //Arrange
@@ -133,7 +133,7 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     }
 
     [Theory]
-    [InlineData("012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789x")]
+    [InlineData("0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789x")]
     [InlineData(" ")]
     [InlineData("  ")]
     [InlineData("        ")]
