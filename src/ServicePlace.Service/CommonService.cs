@@ -89,8 +89,19 @@ public class CommonService
         _context.Providers.Update(provider);
     }
 
-    public Task CreateProviderAsync(CreateProviderCommand? command)
+    public async Task<CreateProviderResult> CreateProviderAsync(CreateProviderCommand? command)
     {
-        throw new NotImplementedException();
+        if (command == null)
+            throw new ArgumentNullException("command");
+
+        if (command.ServiceId == null)
+            throw new ArgumentNullException("command.ServiceId");
+
+        var newProvider = new Model.Entities.Provider { Name = command.Name, ServiceId = command.ServiceId.Value };
+
+        await _context.Providers.AddAsync(newProvider);
+        await _context.SaveChangesAsync();
+
+        return new CreateProviderResult { ProviderId = newProvider.Id };
     }
 }

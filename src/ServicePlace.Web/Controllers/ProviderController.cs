@@ -3,6 +3,7 @@ using ServicePlace.Data;
 using ServicePlace.Model;
 using ServicePlace.Model.Commands;
 using ServicePlace.Model.Queries;
+using ServicePlace.Model.Results;
 using ServicePlace.Service;
 
 namespace ServicePlace.Web.Controllers;
@@ -55,12 +56,13 @@ public class ProviderController : ControllerBase
     }
 
     [HttpPost]
-    public async Task CreateProviderAsync(CreateProviderCommand? command)
+    public async Task<CreateProviderResult> CreateProviderAsync(CreateProviderCommand? command)
     {
         try
         {
-            await _commonService.CreateProviderAsync(command);
-            await _context.SaveChangesAsync();
+            var result = await _commonService.CreateProviderAsync(command);
+
+            return result;
         }
         catch (System.Exception)
         {
