@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ServicePlace.UnitTest;
 
-[CollectionDefinition("TransactionalTests")]
+[Collection("TransactionalTests")]
 public class CommonServiceTestBasic : IClassFixture<TestDatabaseFixture>
 {
     public CommonServiceTestBasic(TestDatabaseFixture fixture)

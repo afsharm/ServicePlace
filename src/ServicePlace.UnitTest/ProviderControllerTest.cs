@@ -5,7 +5,7 @@ using ServicePlace.Model.Commands;
 using ServicePlace.Service;
 using ServicePlace.Web.Controllers;
 
-[CollectionDefinition("TransactionalTests")]
+[Collection("TransactionalTests")]
 public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
 {
     public ProviderControllerTest(TestDatabaseFixture fixture)
