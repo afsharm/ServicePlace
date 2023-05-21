@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Logging;
 using Moq;
+using ServicePlace.Data;
 using ServicePlace.Model.Commands;
 using ServicePlace.Service;
 using ServicePlace.Web.Controllers;
@@ -12,9 +13,8 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
 
     public TestDatabaseFixture Fixture { get; }
 
-    private ProviderController BuildProviderController()
+    private ProviderController BuildProviderController(ServicePlaceContext context)
     {
-        using var context = Fixture.CreateContext();
         var loggerService = Mock.Of<ILogger<CommonService>>();
         var commonService = new CommonService(context, loggerService);
         var loggerController = Mock.Of<ILogger<ProviderController>>();
@@ -23,9 +23,8 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
         return controller;
     }
 
-    private (ServiceController Service, ProviderController Provider) BuildProviderAndServiceController()
+    private (ServiceController Service, ProviderController Provider) BuildProviderAndServiceController(ServicePlaceContext context)
     {
-        using var context = Fixture.CreateContext();
         var loggerService = Mock.Of<ILogger<CommonService>>();
         var commonService = new CommonService(context, loggerService);
         var loggerProviderController = Mock.Of<ILogger<ProviderController>>();
@@ -40,7 +39,8 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     public async Task CreateProvider_does_not_throw_exception_on_basic_conditions()
     {
         //Arrange
-        var controller = BuildProviderController();
+        using var context = Fixture.CreateContext();
+        var controller = BuildProviderController(context);
 
         //Action
         var exception = await Record.ExceptionAsync(() => controller.CreateProviderAsync(new CreateProviderCommand { ServiceId = 1, Name = "Provider ABC" }));
@@ -53,7 +53,8 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     public async Task CreateProvider_throws_exception_when_command_is_null()
     {
         //Arrange
-        var controller = BuildProviderController();
+        using var context = Fixture.CreateContext();
+        var controller = BuildProviderController(context);
 
         //Action
         var exception = await Record.ExceptionAsync(() => controller.CreateProviderAsync(null));
@@ -66,7 +67,8 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     public async Task CreateProvider_throws_exception_when_serviceId_is_null_or_empty()
     {
         //Arrange
-        var controller = BuildProviderController();
+        using var context = Fixture.CreateContext();
+        var controller = BuildProviderController(context);
 
         //Action
         var exception = await Record.ExceptionAsync(() => controller.CreateProviderAsync(new CreateProviderCommand { ServiceId = null, Name = "ABC" }));
@@ -81,7 +83,8 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     public async Task CreateProvider_invalid_serviceIds_are_not_allowed(string value)
     {
         //Arrange
-        var controller = BuildProviderController();
+        using var context = Fixture.CreateContext();
+        var controller = BuildProviderController(context);
 
         //Action
         var serivceId = Convert.ToInt32(value);
@@ -95,7 +98,8 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     public async Task CreateProvider_simple_creation_works()
     {
         //Arrange
-        var controllers = BuildProviderAndServiceController();
+        using var context = Fixture.CreateContext();
+        var controllers = BuildProviderAndServiceController(context);
         var result = await controllers.Service.CreateServiceAsync(new CreateService { Name = Guid.NewGuid().ToString() });
         var createProviderCommand = new CreateProviderCommand { ServiceId = result.ServiceId, Name = Guid.NewGuid().ToString() };
 
@@ -116,7 +120,8 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     public async Task CreateProvider_allowed_provider_names_work(string value)
     {
         //Arrange
-        var controllers = BuildProviderAndServiceController();
+        using var context = Fixture.CreateContext();
+        var controllers = BuildProviderAndServiceController(context);
         var result = await controllers.Service.CreateServiceAsync(new CreateService { Name = Guid.NewGuid().ToString() });
         var createProviderCommand = new CreateProviderCommand { ServiceId = result.ServiceId, Name = value };
 
@@ -137,7 +142,8 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     public async Task CreateProvider_disallowed_provider_names_should_not_be_allowed(string value)
     {
         //Arrange
-        var controllers = BuildProviderAndServiceController();
+        using var context = Fixture.CreateContext();
+        var controllers = BuildProviderAndServiceController(context);
         var result = await controllers.Service.CreateServiceAsync(new CreateService { Name = Guid.NewGuid().ToString() });
         var createProviderCommand = new CreateProviderCommand { ServiceId = result.ServiceId, Name = value };
 
@@ -152,7 +158,8 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     public async Task CreateProvider_dupes_should_not_be_allowed_within_same_service()
     {
         //Arrange
-        var controllers = BuildProviderAndServiceController();
+        using var context = Fixture.CreateContext();
+        var controllers = BuildProviderAndServiceController(context);
         var result = await controllers.Service.CreateServiceAsync(new CreateService { Name = Guid.NewGuid().ToString() });
         var name = Guid.NewGuid().ToString();
         var createProviderCommand = new CreateProviderCommand { ServiceId = result.ServiceId, Name = name };
@@ -169,7 +176,8 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     public async Task CreateProvider_dupes_should_be_allowed_within_different_services()
     {
         //Arrange
-        var controllers = BuildProviderAndServiceController();
+        using var context = Fixture.CreateContext();
+        var controllers = BuildProviderAndServiceController(context);
         var firstResult = await controllers.Service.CreateServiceAsync(new CreateService { Name = Guid.NewGuid().ToString() });
         var secondResult = await controllers.Service.CreateServiceAsync(new CreateService { Name = Guid.NewGuid().ToString() });
         var name = Guid.NewGuid().ToString();
