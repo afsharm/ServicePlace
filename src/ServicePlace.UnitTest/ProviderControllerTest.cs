@@ -62,6 +62,8 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
 
         //Assert
         Assert.NotNull(exception);
+        Assert.Equal(typeof(ArgumentNullException), exception.GetType());
+        Assert.Equal("Value cannot be null. (Parameter 'command')", exception.Message);
     }
 
     [Fact]
@@ -171,7 +173,7 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
 
         //Assert
         Assert.NotNull(exception);
-        Assert.Equal(ErrorMessageConstants.DuplicateServiceName, exception.Message);
+        Assert.Equal("Duplicate service `name`.", exception.Message);
     }
 
     [Fact]

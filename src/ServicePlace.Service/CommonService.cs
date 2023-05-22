@@ -93,7 +93,7 @@ public class CommonService
     public async Task<CreateProviderResult> CreateProviderAsync(CreateProviderCommand? command)
     {
         if (command == null)
-            throw new ArgumentNullException("command");
+            throw new ArgumentNullException(nameof(command));
 
         if (command.ServiceId == null)
             throw new ArgumentNullException("command.ServiceId");
