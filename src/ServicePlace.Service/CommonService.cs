@@ -5,6 +5,7 @@ using ServicePlace.Model.Commands;
 using ServicePlace.Model;
 using Microsoft.Extensions.Logging;
 using ServicePlace.Model.Results;
+using ServicePlace.Model.Constants;
 
 namespace ServicePlace.Service;
 
@@ -100,9 +101,9 @@ public class CommonService
         ValidateProviderName(command.Name);
 
         var anyDuplicate = await _context.Providers.AnyAsync(x => x.Name == command.Name && x.ServiceId == command.ServiceId);
-        
+
         if (anyDuplicate)
-            throw new Exception("Duplicate service `name`.");
+            throw new Exception(ErrorMessageConstants.DuplicateServiceName);
 
         var newProvider = new Model.Entities.Provider { Name = command.Name, ServiceId = command.ServiceId.Value };
 

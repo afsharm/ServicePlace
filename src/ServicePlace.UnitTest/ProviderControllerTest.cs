@@ -2,6 +2,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using ServicePlace.Data;
 using ServicePlace.Model.Commands;
+using ServicePlace.Model.Constants;
 using ServicePlace.Service;
 using ServicePlace.Web.Controllers;
 
@@ -170,6 +171,7 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
 
         //Assert
         Assert.NotNull(exception);
+        Assert.Equal(ErrorMessageConstants.DuplicateServiceName, exception.Message);
     }
 
     [Fact]
