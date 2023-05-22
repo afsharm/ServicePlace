@@ -116,12 +116,12 @@ public class CommonService
     private void ValidateProviderName(string? name)
     {
         if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(name.Trim()))
-            throw new Exception("`name` is null or white space");
+            throw new ArgumentException($"{nameof(name)} is null or white space", nameof(name));
 
         if (name.Trim().Length != name.Length)
-            throw new Exception("`name` should not start or end with space(s)");
+            throw new ArgumentException($"{nameof(name)} should not start or end with space(s)", nameof(name));
 
         if (name.Length < 3 || name.Length > 100)
-            throw new Exception("`name` should not be smaller than 3 or bigger than 100 characters");
+            throw new ArgumentException($"{nameof(name)} should not be smaller than 3 or bigger than 100 characters", nameof(name));
     }
 }
