@@ -96,7 +96,7 @@ public class CommonService
             throw new ArgumentNullException(nameof(command));
 
         if (command.ServiceId == null)
-            throw new ArgumentNullException("command.ServiceId");
+            throw new ArgumentNullException(nameof(command.ServiceId));
 
         ValidateProviderName(command.Name);
 

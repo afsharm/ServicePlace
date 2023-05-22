@@ -78,6 +78,8 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
 
         //Assert
         Assert.NotNull(exception);
+        Assert.Equal(typeof(ArgumentNullException), exception.GetType());
+        Assert.Equal("Value cannot be null. (Parameter 'ServiceId')", exception.Message);
     }
 
     [Theory]
