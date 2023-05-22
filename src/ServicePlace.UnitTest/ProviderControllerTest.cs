@@ -37,7 +37,7 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     }
 
     [Fact]
-    public async Task CreateProvider_does_not_throw_exception_on_basic_conditions()
+    public async Task create_provider_does_not_throw_exception_on_basic_conditions()
     {
         //Arrange
         using var context = Fixture.CreateContext();
@@ -51,7 +51,7 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     }
 
     [Fact]
-    public async Task CreateProvider_throws_exception_when_command_is_null()
+    public async Task create_provider_throw_exception_when_command_is_null()
     {
         //Arrange
         using var context = Fixture.CreateContext();
@@ -65,7 +65,7 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     }
 
     [Fact]
-    public async Task CreateProvider_throws_exception_when_serviceId_is_null_or_empty()
+    public async Task create_provider_throw_exception_when_serviceId_is_null_or_empty()
     {
         //Arrange
         using var context = Fixture.CreateContext();
@@ -81,7 +81,7 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     [Theory]
     [InlineData("-1")]
     [InlineData("0")]
-    public async Task CreateProvider_invalid_serviceIds_are_not_allowed(string value)
+    public async Task create_a_provider_with_invalid_service_id_should_not_work(string value)
     {
         //Arrange
         using var context = Fixture.CreateContext();
@@ -96,7 +96,7 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     }
 
     [Fact]
-    public async Task CreateProvider_simple_creation_works()
+    public async Task create_a_simple_provider_works()
     {
         //Arrange
         using var context = Fixture.CreateContext();
@@ -118,7 +118,7 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     [InlineData("Dr. Brown")]
     [InlineData("Street Beauty")]
     [InlineData("0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789")]
-    public async Task CreateProvider_allowed_provider_names_work(string value)
+    public async Task while_creating_a_provider_allowed_provider_names_should_be_allowed(string value)
     {
         //Arrange
         using var context = Fixture.CreateContext();
@@ -140,7 +140,7 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     [InlineData("        ")]
     [InlineData("ab")]
     [InlineData("c")]
-    public async Task CreateProvider_disallowed_provider_names_should_not_be_allowed(string value)
+    public async Task while_creating_a_provider_disallowed_provider_names_should_not_be_allowed(string value)
     {
         //Arrange
         using var context = Fixture.CreateContext();
@@ -156,7 +156,7 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     }
 
     [Fact]
-    public async Task CreateProvider_dupes_should_not_be_allowed_within_same_service()
+    public async Task while_creating_a_provider_duplicate_service_name_should_not_be_allowed_within_same_service()
     {
         //Arrange
         using var context = Fixture.CreateContext();
@@ -175,7 +175,7 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     }
 
     [Fact]
-    public async Task CreateProvider_dupes_should_be_allowed_within_different_services()
+    public async Task duplicate_service_name_should_be_allowed_within_different_services_while_creating_a_provider()
     {
         //Arrange
         using var context = Fixture.CreateContext();
@@ -195,7 +195,7 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     }
 
     [Fact]
-    public async Task create_a_provider_should_not_create_an_extra_service()
+    public async Task creating_a_provider_should_not_create_an_extra_service()
     {
         //Arrange
         using var context = Fixture.CreateContext();
