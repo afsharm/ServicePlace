@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
 using ServicePlace.Data;
@@ -97,6 +98,8 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
 
         //Assert
         Assert.NotNull(exception);
+        Assert.Equal(typeof(DbUpdateException), exception.GetType());
+        Assert.Equal("An error occurred while saving the entity changes. See the inner exception for details.", exception.Message);
     }
 
     [Fact]
