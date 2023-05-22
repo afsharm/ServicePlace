@@ -141,25 +141,28 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     }
 
     [Theory]
-    [InlineData("0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789x")]
-    [InlineData(" ")]
-    [InlineData("  ")]
-    [InlineData("        ")]
-    [InlineData("ab")]
-    [InlineData("c")]
-    public async Task while_creating_a_provider_disallowed_provider_names_should_not_be_allowed(string value)
+    [InlineData("0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789x",
+        "Argument should not be smaller than 3 or bigger than 100 characters (Parameter 'name')")]
+    [InlineData(" ", "Argument is null or white space (Parameter 'name')")]
+    [InlineData("  ", "Argument is null or white space (Parameter 'name')")]
+    [InlineData("        ", "Argument is null or white space (Parameter 'name')")]
+    [InlineData("ab", "Argument should not be smaller than 3 or bigger than 100 characters (Parameter 'name')")]
+    [InlineData("c", "Argument should not be smaller than 3 or bigger than 100 characters (Parameter 'name')")]
+    public async Task while_creating_a_provider_disallowed_provider_names_should_not_be_allowed(string providerName, string expectedErrorMessage)
     {
         //Arrange
         using var context = Fixture.CreateContext();
         var controllers = BuildProviderAndServiceController(context);
         var result = await controllers.Service.CreateServiceAsync(new CreateService { Name = Guid.NewGuid().ToString() });
-        var createProviderCommand = new CreateProviderCommand { ServiceId = result.ServiceId, Name = value };
+        var createProviderCommand = new CreateProviderCommand { ServiceId = result.ServiceId, Name = providerName };
 
         //Action
         var exception = await Record.ExceptionAsync(() => controllers.Provider.CreateProviderAsync(createProviderCommand));
 
         //Assert
         Assert.NotNull(exception);
+        Assert.Equal(typeof(ArgumentException), exception.GetType());
+        Assert.Equal(expectedErrorMessage, exception.Message);
     }
 
     [Fact]
