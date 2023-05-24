@@ -12,10 +12,10 @@ namespace ServicePlace.Web.Controllers;
 public class ServiceController : ControllerBase
 {
     private readonly ILogger<ServiceController> _logger;
-    private readonly CommonService _commonService;
+    private readonly ICommonService _commonService;
     private readonly ServicePlaceContext _context;
 
-    public ServiceController(ILogger<ServiceController> logger, CommonService commonService, ServicePlaceContext context)
+    public ServiceController(ILogger<ServiceController> logger, ICommonService commonService, ServicePlaceContext context)
     {
         _logger = logger;
         _commonService = commonService;

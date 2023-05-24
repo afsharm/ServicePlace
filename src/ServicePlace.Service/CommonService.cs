@@ -9,7 +9,7 @@ using ServicePlace.Model.Constants;
 
 namespace ServicePlace.Service;
 
-public class CommonService
+public class CommonService: ICommonService
 {
     private readonly ServicePlaceContext _context;
     private readonly ILogger<CommonService> _logger;
