@@ -2,6 +2,7 @@ using ServicePlace.Service;
 using ServicePlace.Model.Commands;
 using Moq;
 using Microsoft.Extensions.Logging;
+using ServicePlace.Data.Repositories;
 
 namespace ServicePlace.UnitTest;
 
@@ -19,7 +20,8 @@ public class CommonServiceTestBasic : IClassFixture<TestDatabaseFixture>
         //Arrange
         using var context = Fixture.CreateContext();
         var logger = Mock.Of<ILogger<CommonService>>();
-        var commonService = new CommonService(context, logger);
+        var serviceRepository = new ServiceRepository(context);
+        var commonService = new CommonService(context, logger, serviceRepository);
 
         //Act
         var createService = new CreateService
@@ -40,7 +42,8 @@ public class CommonServiceTestBasic : IClassFixture<TestDatabaseFixture>
         //Arrange
         using var context = Fixture.CreateContext();
         var logger = Mock.Of<ILogger<CommonService>>();
-        var commonService = new CommonService(context, logger);
+        var serviceRepository = new ServiceRepository(context);
+        var commonService = new CommonService(context, logger, serviceRepository);
 
         //Act
         var createService = new CreateService

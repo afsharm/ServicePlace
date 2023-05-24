@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Logging;
 using Moq;
+using ServicePlace.Data.Repositories;
 using ServicePlace.Model.Commands;
 using ServicePlace.Service;
 using ServicePlace.Web.Controllers;
@@ -18,7 +19,8 @@ public class ServiceControllerTest : IClassFixture<TestDatabaseFixture>
         //Arrange
         using var context = Fixture.CreateContext();
         var loggerCommonService = Mock.Of<ILogger<CommonService>>();
-        var commonService = new CommonService(context, loggerCommonService);
+        var serviceRepository = new ServiceRepository(context);
+        var commonService = new CommonService(context, loggerCommonService, serviceRepository);
         var loggerServiceController = Mock.Of<ILogger<ServiceController>>();
         var serviceController = new ServiceController(loggerServiceController, commonService, context);
 
@@ -35,7 +37,8 @@ public class ServiceControllerTest : IClassFixture<TestDatabaseFixture>
         //Arrange
         using var context = Fixture.CreateContext();
         var loggerCommonService = Mock.Of<ILogger<CommonService>>();
-        var commonService = new CommonService(context, loggerCommonService);
+        var serviceRepository = new ServiceRepository(context);
+        var commonService = new CommonService(context, loggerCommonService, serviceRepository);
         var loggerServiceController = Mock.Of<ILogger<ServiceController>>();
         var serviceController = new ServiceController(loggerServiceController, commonService, context);
 
@@ -58,7 +61,8 @@ public class ServiceControllerTest : IClassFixture<TestDatabaseFixture>
         //Arrange
         using var context = Fixture.CreateContext();
         var loggerCommonService = Mock.Of<ILogger<CommonService>>();
-        var commonService = new CommonService(context, loggerCommonService);
+        var serviceRepository = new ServiceRepository(context);
+        var commonService = new CommonService(context, loggerCommonService, serviceRepository);
         var loggerServiceController = Mock.Of<ILogger<ServiceController>>();
         var serviceController = new ServiceController(loggerServiceController, commonService, context);
 

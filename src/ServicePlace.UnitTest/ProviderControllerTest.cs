@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
 using ServicePlace.Data;
+using ServicePlace.Data.Repositories;
 using ServicePlace.Model.Commands;
 using ServicePlace.Model.Constants;
 using ServicePlace.Service;
@@ -18,7 +19,8 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     private ProviderController BuildProviderController(ServicePlaceContext context)
     {
         var loggerService = Mock.Of<ILogger<CommonService>>();
-        var commonService = new CommonService(context, loggerService);
+        var serviceRepository = new ServiceRepository(context);
+        var commonService = new CommonService(context, loggerService, serviceRepository);
         var loggerController = Mock.Of<ILogger<ProviderController>>();
         var controller = new ProviderController(loggerController, commonService, context);
 
@@ -28,7 +30,8 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     private (ServiceController Service, ProviderController Provider) BuildProviderAndServiceController(ServicePlaceContext context)
     {
         var loggerService = Mock.Of<ILogger<CommonService>>();
-        var commonService = new CommonService(context, loggerService);
+        var serviceRepository = new ServiceRepository(context);
+        var commonService = new CommonService(context, loggerService, serviceRepository);
         var loggerProviderController = Mock.Of<ILogger<ProviderController>>();
         var loggerServiceController = Mock.Of<ILogger<ServiceController>>();
         var providerController = new ProviderController(loggerProviderController, commonService, context);

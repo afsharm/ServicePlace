@@ -6,18 +6,21 @@ using ServicePlace.Model;
 using Microsoft.Extensions.Logging;
 using ServicePlace.Model.Results;
 using ServicePlace.Model.Constants;
+using ServicePlace.Data.Repositories;
 
 namespace ServicePlace.Service;
 
-public class CommonService: ICommonService
+public class CommonService : ICommonService
 {
     private readonly ServicePlaceContext _context;
     private readonly ILogger<CommonService> _logger;
+    private readonly IServiceRepository _serviceRepository;
 
-    public CommonService(ServicePlaceContext context, ILogger<CommonService> logger)
+    public CommonService(ServicePlaceContext context, ILogger<CommonService> logger, IServiceRepository serviceRepository)
     {
         _context = context;
         _logger = logger;
+        _serviceRepository = serviceRepository;
     }
 
     public async Task<IEnumerable<ProviderDisplay>> GetAllProvidersAsync()
@@ -33,13 +36,7 @@ public class CommonService: ICommonService
 
     public async Task<IEnumerable<ServiceDisplay>> GetServicesAsync()
     {
-        return await _context.Services
-            .Select(x => new ServiceDisplay
-            {
-                Id = x.Id,
-                Name = x.Name,
-            })
-            .ToListAsync();
+        return await _serviceRepository.GetServicesAsync();
     }
 
     public async Task<CreateServiceResult> CreateServiceAsync(CreateService command)

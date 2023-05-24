@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Logging;
 using Moq;
+using ServicePlace.Data.Repositories;
 using ServicePlace.Model.Commands;
 using ServicePlace.Service;
 using ServicePlace.Web.Controllers;
@@ -18,7 +19,8 @@ public class CommonServiceAdvancedTest : IClassFixture<TestDatabaseFixture>
         //Arrange
         using var context = Fixture.CreateContext();
         var logger = Mock.Of<ILogger<CommonService>>();
-        var commonService = new CommonService(context, logger);
+        var serviceRepository = new ServiceRepository(context);
+        var commonService = new CommonService(context, logger, serviceRepository);
 
         //Act
         var list = await commonService.GetServicesAsync();
@@ -33,7 +35,8 @@ public class CommonServiceAdvancedTest : IClassFixture<TestDatabaseFixture>
         //Arrange
         using var context = Fixture.CreateContext();
         var logger = Mock.Of<ILogger<CommonService>>();
-        var commonService = new CommonService(context, logger);
+        var serviceRepository = new ServiceRepository(context);
+        var commonService = new CommonService(context, logger, serviceRepository);
 
         //Act
         var list_before = await commonService.GetServicesAsync();
