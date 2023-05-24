@@ -6,7 +6,7 @@ using ServicePlace.Model;
 using Microsoft.Extensions.Logging;
 using ServicePlace.Model.Results;
 using ServicePlace.Model.Constants;
-using ServicePlace.Data.Repositories;
+using ServicePlace.Model.Contracts;
 
 namespace ServicePlace.Service;
 

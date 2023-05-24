@@ -2,8 +2,8 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using ServicePlace.Data.Repositories;
 using ServicePlace.Model.Commands;
+using ServicePlace.Model.Contracts;
 using ServicePlace.Service;
-using ServicePlace.Web.Controllers;
 
 [Collection("TransactionalTests")]
 public class CommonServiceAdvancedTest : IClassFixture<TestDatabaseFixture>

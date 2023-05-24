@@ -2,7 +2,7 @@ using ServicePlace.Model.Commands;
 using ServicePlace.Model.Queries;
 using ServicePlace.Model.Results;
 
-namespace ServicePlace.Service;
+namespace ServicePlace.Model.Contracts;
 
 public interface ICommonService
 {
