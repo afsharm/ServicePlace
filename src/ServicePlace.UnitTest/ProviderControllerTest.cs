@@ -21,7 +21,8 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
         var loggerService = Mock.Of<ILogger<CommonService>>();
         IServiceRepository serviceRepository = new ServiceRepository(context);
         IProviderRepository providerRepository = new ProviderRepository(context);
-        ICommonService commonService = new CommonService(context, loggerService, serviceRepository, providerRepository);
+        IUnitOfWork unitOfWork = new UnitOfWork(context);
+        ICommonService commonService = new CommonService(loggerService, serviceRepository, providerRepository, unitOfWork);
         var loggerController = Mock.Of<ILogger<ProviderController>>();
         var controller = new ProviderController(loggerController, commonService, context);
 
@@ -33,7 +34,8 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
         var loggerService = Mock.Of<ILogger<CommonService>>();
         IServiceRepository serviceRepository = new ServiceRepository(context);
         IProviderRepository providerRepository = new ProviderRepository(context);
-        ICommonService commonService = new CommonService(context, loggerService, serviceRepository, providerRepository);
+        IUnitOfWork unitOfWork = new UnitOfWork(context);
+        ICommonService commonService = new CommonService(loggerService, serviceRepository, providerRepository, unitOfWork);
         var loggerProviderController = Mock.Of<ILogger<ProviderController>>();
         var loggerServiceController = Mock.Of<ILogger<ServiceController>>();
         var providerController = new ProviderController(loggerProviderController, commonService, context);

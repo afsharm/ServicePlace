@@ -19,7 +19,8 @@ public class CommonServiceAdvancedTest : IClassFixture<TestDatabaseFixture>
         var logger = Mock.Of<ILogger<CommonService>>();
         IServiceRepository serviceRepository = new ServiceRepository(context);
         IProviderRepository providerRepository = new ProviderRepository(context);
-        ICommonService commonService = new CommonService(context, logger, serviceRepository, providerRepository);
+        IUnitOfWork unitOfWork = new UnitOfWork(context);
+        ICommonService commonService = new CommonService(logger, serviceRepository, providerRepository, unitOfWork);
         return commonService;
     }
 

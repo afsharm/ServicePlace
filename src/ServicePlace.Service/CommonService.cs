@@ -1,6 +1,4 @@
-﻿using ServicePlace.Data;
-using Microsoft.EntityFrameworkCore;
-using ServicePlace.Model.Queries;
+﻿using ServicePlace.Model.Queries;
 using ServicePlace.Model.Commands;
 using ServicePlace.Model;
 using Microsoft.Extensions.Logging;
@@ -12,17 +10,17 @@ namespace ServicePlace.Service;
 
 public class CommonService : ICommonService
 {
-    private readonly ServicePlaceContext _context;
     private readonly ILogger<CommonService> _logger;
     private readonly IServiceRepository _serviceRepository;
     private readonly IProviderRepository _providerRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public CommonService(ServicePlaceContext context, ILogger<CommonService> logger, IServiceRepository serviceRepository, IProviderRepository providerRepository)
+    public CommonService(ILogger<CommonService> logger, IServiceRepository serviceRepository, IProviderRepository providerRepository, IUnitOfWork unitOfWork)
     {
-        _context = context;
         _logger = logger;
         _serviceRepository = serviceRepository;
         _providerRepository = providerRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<IEnumerable<ProviderDisplay>> GetAllProvidersAsync()
@@ -42,10 +40,10 @@ public class CommonService : ICommonService
         {
             Name = command.Name
         };
-        await _context.Services.AddAsync(service);
+        await _serviceRepository.AddAsync(service);
 
         //doing save changes is necessary here because we need to return database generated id without exposing Entities to upper layers
-        await _context.SaveChangesAsync();
+        await _unitOfWork.SaveChangesAsync();
 
         return new CreateServiceResult
         {
@@ -61,26 +59,19 @@ public class CommonService : ICommonService
 
     public async Task<IEnumerable<ProviderDisplay>> GetProviderByServiceIdAsync(int serviceId)
     {
-        return await _context.Providers
-        .Where(x => x.Service.Id == serviceId)
-            .Select(x => new ProviderDisplay
-            {
-                Id = x.Id,
-                Name = x.Name
-            })
-            .ToListAsync();
+        return await _providerRepository.GetProviderByServiceIdAsync(serviceId);
     }
 
     public async Task UpdateProviderAsync(int id, string name)
     {
         _logger.LogDebug($"UpdateProviderAsync => {id}, {name}");
-        var provider = await _context.Providers.Where(x => x.Id == id).FirstOrDefaultAsync();
+        var provider = await _providerRepository.GetProviderAsync(id);
 
         if (provider == null)
             throw new NotFoundException();
 
         provider.Name = name;
-        _context.Providers.Update(provider);
+        _providerRepository.UpdateProvider(provider);
     }
 
     public async Task<CreateProviderResult> CreateProviderAsync(CreateProviderCommand? command)
@@ -93,15 +84,15 @@ public class CommonService : ICommonService
 
         ValidateProviderName(command.Name);
 
-        var anyDuplicate = await _context.Providers.AnyAsync(x => x.Name == command.Name && x.ServiceId == command.ServiceId);
+        var anyDuplicate = await _providerRepository.AnyDuplicateAsync(command.Name, command.ServiceId);
 
         if (anyDuplicate)
             throw new Exception(ErrorMessageConstants.DuplicateServiceName);
 
         var newProvider = new Model.Entities.Provider { Name = command.Name, ServiceId = command.ServiceId.Value };
 
-        await _context.Providers.AddAsync(newProvider);
-        await _context.SaveChangesAsync();
+        await _providerRepository.AddProviderAsync(newProvider);
+        await _unitOfWork.SaveChangesAsync();
 
         return new CreateProviderResult { ProviderId = newProvider.Id };
     }

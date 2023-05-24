@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ServicePlace.Model.Queries;
 using ServicePlace.Model.Contracts;
+using ServicePlace.Model.Entities;
 
 namespace ServicePlace.Data.Repositories;
 
@@ -22,5 +23,10 @@ public class ServiceRepository : IServiceRepository
                 Name = x.Name,
             })
             .ToListAsync();
+    }
+
+    public async Task AddAsync(Service service)
+    {
+        await _context.Services.AddAsync(service);
     }
 }
