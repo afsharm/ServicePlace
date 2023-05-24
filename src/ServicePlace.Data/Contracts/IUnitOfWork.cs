@@ -1,4 +1,4 @@
-namespace ServicePlace.Model.Contracts;
+namespace ServicePlace.Data.Contracts;
 
 public interface IUnitOfWork
 {

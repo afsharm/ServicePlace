@@ -4,7 +4,8 @@ using ServicePlace.Model;
 using Microsoft.Extensions.Logging;
 using ServicePlace.Model.Results;
 using ServicePlace.Model.Constants;
-using ServicePlace.Model.Contracts;
+using ServicePlace.Data.Contracts;
+using ServicePlace.Service.Contracts;
 
 namespace ServicePlace.Service;
 

@@ -1,7 +1,7 @@
 using ServicePlace.Model.Entities;
 using ServicePlace.Model.Queries;
 
-namespace ServicePlace.Model.Contracts;
+namespace ServicePlace.Data.Contracts;
 
 public interface IServiceRepository
 {

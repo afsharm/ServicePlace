@@ -4,7 +4,8 @@ using Moq;
 using ServicePlace.Data;
 using ServicePlace.Data.Repositories;
 using ServicePlace.Model.Commands;
-using ServicePlace.Model.Contracts;
+using ServicePlace.Data.Contracts;
+using ServicePlace.Service.Contracts;
 using ServicePlace.Service;
 using ServicePlace.Web.Controllers;
 

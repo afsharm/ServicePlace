@@ -3,7 +3,8 @@ using ServicePlace.Model.Commands;
 using Moq;
 using Microsoft.Extensions.Logging;
 using ServicePlace.Data.Repositories;
-using ServicePlace.Model.Contracts;
+using ServicePlace.Data.Contracts;
+using ServicePlace.Service.Contracts;
 using ServicePlace.Data;
 
 namespace ServicePlace.UnitTest;

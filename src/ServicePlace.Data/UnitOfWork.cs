@@ -1,4 +1,4 @@
-using ServicePlace.Model.Contracts;
+using ServicePlace.Data.Contracts;
 
 namespace ServicePlace.Data;
 
