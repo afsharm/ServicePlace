@@ -13,10 +13,10 @@ namespace ServicePlace.Web.Controllers;
 public class ProviderController : ControllerBase
 {
     private readonly ILogger<ProviderController> _logger;
-    private readonly CommonService _commonService;
+    private readonly ICommonService _commonService;
     private readonly ServicePlaceContext _context;
 
-    public ProviderController(ILogger<ProviderController> logger, CommonService commonService, ServicePlaceContext context)
+    public ProviderController(ILogger<ProviderController> logger, ICommonService commonService, ServicePlaceContext context)
     {
         _logger = logger;
         _commonService = commonService;
