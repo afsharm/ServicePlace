@@ -19,8 +19,8 @@ public class ServiceControllerTest : IClassFixture<TestDatabaseFixture>
         //Arrange
         using var context = Fixture.CreateContext();
         var loggerCommonService = Mock.Of<ILogger<CommonService>>();
-        var serviceRepository = new ServiceRepository(context);
-        var providerRepository = new ProviderRepository(context);
+        IServiceRepository serviceRepository = new ServiceRepository(context);
+        IProviderRepository providerRepository = new ProviderRepository(context);
         ICommonService commonService = new CommonService(context, loggerCommonService, serviceRepository, providerRepository);
         var loggerServiceController = Mock.Of<ILogger<ServiceController>>();
         var serviceController = new ServiceController(loggerServiceController, commonService, context);
@@ -38,8 +38,8 @@ public class ServiceControllerTest : IClassFixture<TestDatabaseFixture>
         //Arrange
         using var context = Fixture.CreateContext();
         var loggerCommonService = Mock.Of<ILogger<CommonService>>();
-        var serviceRepository = new ServiceRepository(context);
-        var providerRepository = new ProviderRepository(context);
+        IServiceRepository serviceRepository = new ServiceRepository(context);
+        IProviderRepository providerRepository = new ProviderRepository(context);
         ICommonService commonService = new CommonService(context, loggerCommonService, serviceRepository, providerRepository);
         var loggerServiceController = Mock.Of<ILogger<ServiceController>>();
         var serviceController = new ServiceController(loggerServiceController, commonService, context);
@@ -63,8 +63,8 @@ public class ServiceControllerTest : IClassFixture<TestDatabaseFixture>
         //Arrange
         using var context = Fixture.CreateContext();
         var loggerCommonService = Mock.Of<ILogger<CommonService>>();
-        var serviceRepository = new ServiceRepository(context);
-        var providerRepository = new ProviderRepository(context);
+        IServiceRepository serviceRepository = new ServiceRepository(context);
+        IProviderRepository providerRepository = new ProviderRepository(context);
         ICommonService commonService = new CommonService(context, loggerCommonService, serviceRepository, providerRepository);
         var loggerServiceController = Mock.Of<ILogger<ServiceController>>();
         var serviceController = new ServiceController(loggerServiceController, commonService, context);
