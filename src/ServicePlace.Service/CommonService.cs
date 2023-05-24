@@ -15,23 +15,19 @@ public class CommonService : ICommonService
     private readonly ServicePlaceContext _context;
     private readonly ILogger<CommonService> _logger;
     private readonly IServiceRepository _serviceRepository;
+    private readonly IProviderRepository _providerRepository;
 
-    public CommonService(ServicePlaceContext context, ILogger<CommonService> logger, IServiceRepository serviceRepository)
+    public CommonService(ServicePlaceContext context, ILogger<CommonService> logger, IServiceRepository serviceRepository, IProviderRepository providerRepository)
     {
         _context = context;
         _logger = logger;
         _serviceRepository = serviceRepository;
+        _providerRepository = providerRepository;
     }
 
     public async Task<IEnumerable<ProviderDisplay>> GetAllProvidersAsync()
     {
-        return await _context.Providers
-            .Select(x => new ProviderDisplay
-            {
-                Id = x.Id,
-                Name = x.Name
-            })
-            .ToListAsync();
+        return await _providerRepository.GetAllProvidersAsync();
     }
 
     public async Task<IEnumerable<ServiceDisplay>> GetServicesAsync()

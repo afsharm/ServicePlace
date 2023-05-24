@@ -15,6 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSqlite<ServicePlaceContext>("Data Source=ServicePlace.db");
 builder.Services.AddScoped<ICommonService, CommonService>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+builder.Services.AddScoped<IProviderRepository, ProviderRepository>();
 
 var app = builder.Build();
 app.CreateDbIfNotExists();

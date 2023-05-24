@@ -20,7 +20,8 @@ public class ServiceControllerTest : IClassFixture<TestDatabaseFixture>
         using var context = Fixture.CreateContext();
         var loggerCommonService = Mock.Of<ILogger<CommonService>>();
         var serviceRepository = new ServiceRepository(context);
-        var commonService = new CommonService(context, loggerCommonService, serviceRepository);
+        var providerRepository = new ProviderRepository(context);
+        var commonService = new CommonService(context, loggerCommonService, serviceRepository, providerRepository);
         var loggerServiceController = Mock.Of<ILogger<ServiceController>>();
         var serviceController = new ServiceController(loggerServiceController, commonService, context);
 
@@ -38,7 +39,8 @@ public class ServiceControllerTest : IClassFixture<TestDatabaseFixture>
         using var context = Fixture.CreateContext();
         var loggerCommonService = Mock.Of<ILogger<CommonService>>();
         var serviceRepository = new ServiceRepository(context);
-        var commonService = new CommonService(context, loggerCommonService, serviceRepository);
+        var providerRepository = new ProviderRepository(context);
+        var commonService = new CommonService(context, loggerCommonService, serviceRepository, providerRepository);
         var loggerServiceController = Mock.Of<ILogger<ServiceController>>();
         var serviceController = new ServiceController(loggerServiceController, commonService, context);
 
@@ -62,7 +64,8 @@ public class ServiceControllerTest : IClassFixture<TestDatabaseFixture>
         using var context = Fixture.CreateContext();
         var loggerCommonService = Mock.Of<ILogger<CommonService>>();
         var serviceRepository = new ServiceRepository(context);
-        var commonService = new CommonService(context, loggerCommonService, serviceRepository);
+        var providerRepository = new ProviderRepository(context);
+        var commonService = new CommonService(context, loggerCommonService, serviceRepository, providerRepository);
         var loggerServiceController = Mock.Of<ILogger<ServiceController>>();
         var serviceController = new ServiceController(loggerServiceController, commonService, context);
 

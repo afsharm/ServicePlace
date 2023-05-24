@@ -21,7 +21,8 @@ public class CommonServiceTestBasic : IClassFixture<TestDatabaseFixture>
         using var context = Fixture.CreateContext();
         var logger = Mock.Of<ILogger<CommonService>>();
         var serviceRepository = new ServiceRepository(context);
-        var commonService = new CommonService(context, logger, serviceRepository);
+        var providerRepository = new ProviderRepository(context);
+        var commonService = new CommonService(context, logger, serviceRepository, providerRepository);
 
         //Act
         var createService = new CreateService
@@ -43,7 +44,8 @@ public class CommonServiceTestBasic : IClassFixture<TestDatabaseFixture>
         using var context = Fixture.CreateContext();
         var logger = Mock.Of<ILogger<CommonService>>();
         var serviceRepository = new ServiceRepository(context);
-        var commonService = new CommonService(context, logger, serviceRepository);
+        var providerRepository = new ProviderRepository(context);
+        var commonService = new CommonService(context, logger, serviceRepository, providerRepository);
 
         //Act
         var createService = new CreateService
