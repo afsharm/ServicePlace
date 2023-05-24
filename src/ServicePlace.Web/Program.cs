@@ -1,5 +1,6 @@
 using ServicePlace.Data;
 using ServicePlace.Data.Repositories;
+using ServicePlace.Model.Contracts;
 using ServicePlace.Service;
 using ServicePlace.Web;
 
@@ -16,6 +17,7 @@ builder.Services.AddSqlite<ServicePlaceContext>("Data Source=ServicePlace.db");
 builder.Services.AddScoped<ICommonService, CommonService>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 builder.Services.AddScoped<IProviderRepository, ProviderRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 app.CreateDbIfNotExists();
