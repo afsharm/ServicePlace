@@ -4,6 +4,7 @@ using Moq;
 using Microsoft.Extensions.Logging;
 using ServicePlace.Data.Repositories;
 using ServicePlace.Model.Contracts;
+using ServicePlace.Data;
 
 namespace ServicePlace.UnitTest;
 
@@ -15,15 +16,21 @@ public class CommonServiceTestBasic : IClassFixture<TestDatabaseFixture>
 
     public TestDatabaseFixture Fixture { get; }
 
+    private ICommonService BuildCommonService(ServicePlaceContext context)
+    {
+        var logger = Mock.Of<ILogger<CommonService>>();
+        IServiceRepository serviceRepository = new ServiceRepository(context);
+        IProviderRepository providerRepository = new ProviderRepository(context);
+        ICommonService commonService = new CommonService(context, logger, serviceRepository, providerRepository);
+        return commonService;
+    }
+
     [Fact]
     public async Task Validate_create_should_not_throw_exception_for_ABC_string()
     {
         //Arrange
         using var context = Fixture.CreateContext();
-        var logger = Mock.Of<ILogger<CommonService>>();
-        IServiceRepository serviceRepository = new ServiceRepository(context);
-        IProviderRepository providerRepository = new ProviderRepository(context);
-        ICommonService commonService = new CommonService(context, logger, serviceRepository, providerRepository);
+        var commonService = BuildCommonService(context);
 
         //Act
         var createService = new CreateService
@@ -43,10 +50,7 @@ public class CommonServiceTestBasic : IClassFixture<TestDatabaseFixture>
     {
         //Arrange
         using var context = Fixture.CreateContext();
-        var logger = Mock.Of<ILogger<CommonService>>();
-        IServiceRepository serviceRepository = new ServiceRepository(context);
-        IProviderRepository providerRepository = new ProviderRepository(context);
-        ICommonService commonService = new CommonService(context, logger, serviceRepository, providerRepository);
+        var commonService = BuildCommonService(context);
 
         //Act
         var createService = new CreateService

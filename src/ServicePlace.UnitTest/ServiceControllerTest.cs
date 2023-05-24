@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Logging;
 using Moq;
+using ServicePlace.Data;
 using ServicePlace.Data.Repositories;
 using ServicePlace.Model.Commands;
 using ServicePlace.Model.Contracts;
@@ -14,17 +15,23 @@ public class ServiceControllerTest : IClassFixture<TestDatabaseFixture>
 
     public TestDatabaseFixture Fixture { get; }
 
-    [Fact]
-    public async Task GetServiceTest()
+    private ServiceController BuildServiceController(ServicePlaceContext context)
     {
-        //Arrange
-        using var context = Fixture.CreateContext();
         var loggerCommonService = Mock.Of<ILogger<CommonService>>();
         IServiceRepository serviceRepository = new ServiceRepository(context);
         IProviderRepository providerRepository = new ProviderRepository(context);
         ICommonService commonService = new CommonService(context, loggerCommonService, serviceRepository, providerRepository);
         var loggerServiceController = Mock.Of<ILogger<ServiceController>>();
         var serviceController = new ServiceController(loggerServiceController, commonService, context);
+        return serviceController;
+    }
+
+    [Fact]
+    public async Task GetServiceTest()
+    {
+        //Arrange
+        using var context = Fixture.CreateContext();
+        var serviceController = BuildServiceController(context);
 
         //Act
         var exception = await Record.ExceptionAsync(() => serviceController.GetServicesAsync());
@@ -38,12 +45,7 @@ public class ServiceControllerTest : IClassFixture<TestDatabaseFixture>
     {
         //Arrange
         using var context = Fixture.CreateContext();
-        var loggerCommonService = Mock.Of<ILogger<CommonService>>();
-        IServiceRepository serviceRepository = new ServiceRepository(context);
-        IProviderRepository providerRepository = new ProviderRepository(context);
-        ICommonService commonService = new CommonService(context, loggerCommonService, serviceRepository, providerRepository);
-        var loggerServiceController = Mock.Of<ILogger<ServiceController>>();
-        var serviceController = new ServiceController(loggerServiceController, commonService, context);
+        var serviceController = BuildServiceController(context);
 
         //Act
         var result = await serviceController.GetServicesAsync();
@@ -63,12 +65,7 @@ public class ServiceControllerTest : IClassFixture<TestDatabaseFixture>
     {
         //Arrange
         using var context = Fixture.CreateContext();
-        var loggerCommonService = Mock.Of<ILogger<CommonService>>();
-        IServiceRepository serviceRepository = new ServiceRepository(context);
-        IProviderRepository providerRepository = new ProviderRepository(context);
-        ICommonService commonService = new CommonService(context, loggerCommonService, serviceRepository, providerRepository);
-        var loggerServiceController = Mock.Of<ILogger<ServiceController>>();
-        var serviceController = new ServiceController(loggerServiceController, commonService, context);
+        var serviceController = BuildServiceController(context);
 
         //Act
         var resultBefore = await serviceController.GetServicesAsync();

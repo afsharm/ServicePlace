@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Logging;
 using Moq;
+using ServicePlace.Data;
 using ServicePlace.Data.Repositories;
 using ServicePlace.Model.Commands;
 using ServicePlace.Model.Contracts;
@@ -13,15 +14,21 @@ public class CommonServiceAdvancedTest : IClassFixture<TestDatabaseFixture>
 
     public TestDatabaseFixture Fixture { get; }
 
+    private ICommonService BuildCommonService(ServicePlaceContext context)
+    {
+        var logger = Mock.Of<ILogger<CommonService>>();
+        IServiceRepository serviceRepository = new ServiceRepository(context);
+        IProviderRepository providerRepository = new ProviderRepository(context);
+        ICommonService commonService = new CommonService(context, logger, serviceRepository, providerRepository);
+        return commonService;
+    }
+
     [Fact]
     public async Task Services_has_members()
     {
         //Arrange
         using var context = Fixture.CreateContext();
-        var logger = Mock.Of<ILogger<CommonService>>();
-        IServiceRepository serviceRepository = new ServiceRepository(context);
-        IProviderRepository providerRepository = new ProviderRepository(context);
-        ICommonService commonService = new CommonService(context, logger, serviceRepository, providerRepository);
+        var commonService = BuildCommonService(context);
 
         //Act
         var list = await commonService.GetServicesAsync();
@@ -35,10 +42,7 @@ public class CommonServiceAdvancedTest : IClassFixture<TestDatabaseFixture>
     {
         //Arrange
         using var context = Fixture.CreateContext();
-        var logger = Mock.Of<ILogger<CommonService>>();
-        IServiceRepository serviceRepository = new ServiceRepository(context);
-        IProviderRepository providerRepository = new ProviderRepository(context);
-        ICommonService commonService = new CommonService(context, logger, serviceRepository, providerRepository);
+        var commonService = BuildCommonService(context);
 
         //Act
         var list_before = await commonService.GetServicesAsync();
