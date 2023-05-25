@@ -12,17 +12,14 @@ namespace ServicePlace.UnitTest.Controllers;
 [Collection("TransactionalTests")]
 public class ServiceControllerRepositoryTest
 {
-    private ServiceController BuildServiceController()
+    private ServiceController BuildServiceController(IServiceRepository serviceRepository = null!)
     {
-        var loggerCommonService = Mock.Of<ILogger<CommonService>>();
-        var serviceRepositoryMock = new Mock<IServiceRepository>();
-        serviceRepositoryMock.Setup(x => x.GetServicesAsync().Result).Returns(new List<ServiceDisplay>() { new ServiceDisplay() });
-        var providerRepository = Mock.Of<IProviderRepository>();
-        var unitOfWork2 = Mock.Of<IUnitOfWork>();
-        var unitOfWorkMock = new Mock<IUnitOfWork>();
-        ICommonService commonService = new CommonService(loggerCommonService, serviceRepositoryMock.Object, providerRepository, unitOfWorkMock.Object);
-        var loggerServiceController = Mock.Of<ILogger<ServiceController>>();
-        var serviceController = new ServiceController(loggerServiceController, commonService);
+        if (serviceRepository == null)
+            serviceRepository = Mock.Of<IServiceRepository>();
+
+        ICommonService commonService = new CommonService(Mock.Of<ILogger<CommonService>>(),
+            serviceRepository, Mock.Of<IProviderRepository>(), Mock.Of<IUnitOfWork>());
+        var serviceController = new ServiceController(Mock.Of<ILogger<ServiceController>>(), commonService);
         return serviceController;
     }
 
@@ -45,7 +42,9 @@ public class ServiceControllerRepositoryTest
     public async Task get_services_return_mocked_values()
     {
         //Arrange
-        var serviceController = BuildServiceController();
+        var serviceRepositoryMock = new Mock<IServiceRepository>();
+        serviceRepositoryMock.Setup(x => x.GetServicesAsync().Result).Returns(new List<ServiceDisplay>() { new ServiceDisplay() });
+        var serviceController = BuildServiceController(serviceRepositoryMock.Object);
 
         //Action
         var list = await serviceController.GetServicesAsync();
