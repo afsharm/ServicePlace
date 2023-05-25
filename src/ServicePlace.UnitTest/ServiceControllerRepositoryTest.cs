@@ -8,7 +8,7 @@ using ServicePlace.Web.Controllers;
 namespace ServicePlace.UnitTest;
 
 [Collection("TransactionalTests")]
-public class ServiceControllerRepTest
+public class ServiceControllerRepositoryTest
 {
     private ServiceController BuildServiceController()
     {
