@@ -16,7 +16,7 @@ public class ServiceControllerRepositoryTest
     {
         var loggerCommonService = Mock.Of<ILogger<CommonService>>();
         var serviceRepositoryMock = new Mock<IServiceRepository>();
-        serviceRepositoryMock.Setup(x => x.GetServicesAsync()).Returns(GenerateList);
+        serviceRepositoryMock.Setup(x => x.GetServicesAsync().Result).Returns(new List<ServiceDisplay>() { new ServiceDisplay() });
         var providerRepository = Mock.Of<IProviderRepository>();
         var unitOfWork2 = Mock.Of<IUnitOfWork>();
         var unitOfWorkMock = new Mock<IUnitOfWork>();
@@ -24,11 +24,6 @@ public class ServiceControllerRepositoryTest
         var loggerServiceController = Mock.Of<ILogger<ServiceController>>();
         var serviceController = new ServiceController(loggerServiceController, commonService);
         return serviceController;
-    }
-
-    private Task<IEnumerable<ServiceDisplay>> GenerateList()
-    {
-        return Task.FromResult<IEnumerable<ServiceDisplay>>(new List<ServiceDisplay>() { new ServiceDisplay() });
     }
 
     [Fact]
