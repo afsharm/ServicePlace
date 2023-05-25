@@ -28,7 +28,7 @@ public class ServiceControllerRepositoryTest
 
     private Task<IEnumerable<ServiceDisplay>> GenerateList()
     {
-        return Task.FromResult<IEnumerable<ServiceDisplay>>(new List<ServiceDisplay>());
+        return Task.FromResult<IEnumerable<ServiceDisplay>>(new List<ServiceDisplay>() { new ServiceDisplay() });
     }
 
     [Fact]
@@ -44,5 +44,18 @@ public class ServiceControllerRepositoryTest
 
         //Assert
         Assert.Null(exception);
+    }
+
+    [Fact]
+    public async Task get_services_return_mocked_values()
+    {
+        //Arrange
+        var serviceController = BuildServiceController();
+
+        //Action
+        var list = await serviceController.GetServicesAsync();
+
+        //Assert
+        Assert.Equal(1, list.Count());
     }
 }
