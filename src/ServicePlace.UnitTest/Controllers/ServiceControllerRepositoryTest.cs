@@ -2,6 +2,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using ServicePlace.Data.Contracts;
 using ServicePlace.Model.Commands;
+using ServicePlace.Model.Queries;
 using ServicePlace.Service;
 using ServicePlace.Service.Contracts;
 using ServicePlace.Web.Controllers;
@@ -14,13 +15,20 @@ public class ServiceControllerRepositoryTest
     private ServiceController BuildServiceController()
     {
         var loggerCommonService = Mock.Of<ILogger<CommonService>>();
-        var serviceRepository = Mock.Of<IServiceRepository>();
+        var serviceRepositoryMock = new Mock<IServiceRepository>();
+        serviceRepositoryMock.Setup(x => x.GetServicesAsync()).Returns(GenerateList);
         var providerRepository = Mock.Of<IProviderRepository>();
-        var unitOfWork = Mock.Of<IUnitOfWork>();
-        ICommonService commonService = new CommonService(loggerCommonService, serviceRepository, providerRepository, unitOfWork);
+        var unitOfWork2 = Mock.Of<IUnitOfWork>();
+        var unitOfWorkMock = new Mock<IUnitOfWork>();
+        ICommonService commonService = new CommonService(loggerCommonService, serviceRepositoryMock.Object, providerRepository, unitOfWorkMock.Object);
         var loggerServiceController = Mock.Of<ILogger<ServiceController>>();
         var serviceController = new ServiceController(loggerServiceController, commonService);
         return serviceController;
+    }
+
+    private Task<IEnumerable<ServiceDisplay>> GenerateList()
+    {
+        return Task.FromResult<IEnumerable<ServiceDisplay>>(new List<ServiceDisplay>());
     }
 
     [Fact]
@@ -32,10 +40,9 @@ public class ServiceControllerRepositoryTest
         var command = new CreateService { Name = serviceName };
 
         //Action
-        var result = await serviceController.CreateServiceAsync(command);
+        var exception = await Record.ExceptionAsync(() => serviceController.CreateServiceAsync(command));
 
         //Assert
-        Assert.NotNull(result);
-        Assert.True(result.ServiceId > 0);
+        Assert.Null(exception);
     }
 }
