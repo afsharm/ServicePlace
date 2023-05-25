@@ -6,8 +6,9 @@ using ServicePlace.Data.Repositories;
 using ServicePlace.Data.Contracts;
 using ServicePlace.Service.Contracts;
 using ServicePlace.Data;
+using ServicePlace.UnitTest.Common;
 
-namespace ServicePlace.UnitTest;
+namespace ServicePlace.UnitTest.Services;
 
 [Collection("TransactionalTests")]
 public class CommonServiceTestBasic : IClassFixture<TestDatabaseFixture>

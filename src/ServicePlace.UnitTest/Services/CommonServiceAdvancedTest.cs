@@ -6,6 +6,9 @@ using ServicePlace.Model.Commands;
 using ServicePlace.Data.Contracts;
 using ServicePlace.Service.Contracts;
 using ServicePlace.Service;
+using ServicePlace.UnitTest.Common;
+
+namespace ServicePlace.UnitTest.Services;
 
 [Collection("TransactionalTests")]
 public class CommonServiceAdvancedTest : IClassFixture<TestDatabaseFixture>

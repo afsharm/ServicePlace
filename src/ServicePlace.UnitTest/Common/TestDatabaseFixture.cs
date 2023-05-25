@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ServicePlace.Data;
-using ServicePlace.Model.Entities;
+
+namespace ServicePlace.UnitTest.Common;
 
 public class TestDatabaseFixture
 {
@@ -21,8 +22,8 @@ public class TestDatabaseFixture
                     context.Database.EnsureCreated();
 
                     context.AddRange(
-                        new Service { Name = "Service 1" },
-                        new Service { Name = "Service 2" });
+                        new ServicePlace.Model.Entities.Service { Name = "Service 1" },
+                        new ServicePlace.Model.Entities.Service { Name = "Service 2" });
                     context.SaveChanges();
                 }
 

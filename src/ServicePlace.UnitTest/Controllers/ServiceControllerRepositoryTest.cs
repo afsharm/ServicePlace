@@ -6,7 +6,7 @@ using ServicePlace.Service;
 using ServicePlace.Service.Contracts;
 using ServicePlace.Web.Controllers;
 
-namespace ServicePlace.UnitTest;
+namespace ServicePlace.UnitTest.Controllers;
 
 [Collection("TransactionalTests")]
 public class ServiceControllerRepositoryTest

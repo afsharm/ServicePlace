@@ -7,6 +7,9 @@ using ServicePlace.Data.Contracts;
 using ServicePlace.Service.Contracts;
 using ServicePlace.Service;
 using ServicePlace.Web.Controllers;
+using ServicePlace.UnitTest.Common;
+
+namespace ServicePlace.UnitTest.Controllers;
 
 [Collection("TransactionalTests")]
 public class ServiceControllerTest : IClassFixture<TestDatabaseFixture>
