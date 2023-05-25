@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
-using ServicePlace.Data;
 using ServicePlace.Model;
 using ServicePlace.Model.Commands;
 using ServicePlace.Service.Contracts;
 using ServicePlace.Model.Queries;
 using ServicePlace.Model.Results;
+using ServicePlace.Data.Contracts;
 
 namespace ServicePlace.Web.Controllers;
 
@@ -14,13 +14,13 @@ public class ProviderController : ControllerBase
 {
     private readonly ILogger<ProviderController> _logger;
     private readonly ICommonService _commonService;
-    private readonly ServicePlaceContext _context;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public ProviderController(ILogger<ProviderController> logger, ICommonService commonService, ServicePlaceContext context)
+    public ProviderController(ILogger<ProviderController> logger, ICommonService commonService, IUnitOfWork unitOfWork)
     {
         _logger = logger;
         _commonService = commonService;
-        _context = context;
+        _unitOfWork = unitOfWork;
     }
 
     [HttpGet]
@@ -41,7 +41,7 @@ public class ProviderController : ControllerBase
         try
         {
             await _commonService.UpdateProviderAsync(id, name);
-            await _context.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync();
         }
         catch (NotFoundException)
         {

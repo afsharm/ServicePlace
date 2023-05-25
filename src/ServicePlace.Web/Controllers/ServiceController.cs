@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using ServicePlace.Data;
 using ServicePlace.Model.Commands;
 using ServicePlace.Service.Contracts;
 using ServicePlace.Model.Queries;
@@ -13,13 +12,11 @@ public class ServiceController : ControllerBase
 {
     private readonly ILogger<ServiceController> _logger;
     private readonly ICommonService _commonService;
-    private readonly ServicePlaceContext _context;
 
-    public ServiceController(ILogger<ServiceController> logger, ICommonService commonService, ServicePlaceContext context)
+    public ServiceController(ILogger<ServiceController> logger, ICommonService commonService)
     {
         _logger = logger;
         _commonService = commonService;
-        _context = context;
     }
 
     [HttpGet]
