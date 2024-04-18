@@ -5,7 +5,20 @@ using ServicePlace.Service.Contracts;
 using ServicePlace.Service;
 using ServicePlace.Web;
 
+var AllowAnyOrigin = "_allowAnyOrigin";
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(AllowAnyOrigin, builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+
+});
 
 // Add services to the container.
 
@@ -31,6 +44,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(AllowAnyOrigin);
 
 app.UseAuthorization();
 
