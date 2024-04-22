@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
+using ServicePlace.Data;
 using ServicePlace.Data.Contracts;
 using ServicePlace.Model.Commands;
 using ServicePlace.Model.Queries;
@@ -19,7 +21,7 @@ public class ServiceControllerRepositoryTest
 
         ICommonService commonService = new CommonService(Mock.Of<ILogger<CommonService>>(),
             serviceRepository, Mock.Of<IProviderRepository>(), Mock.Of<IUnitOfWork>());
-        var serviceController = new ServiceController(Mock.Of<ILogger<ServiceController>>(), commonService);
+        var serviceController = new ServiceController(Mock.Of<ILogger<ServiceController>>(), commonService, Mock.Of<IUnitOfWork>());
         return serviceController;
     }
 

@@ -43,7 +43,7 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
         var loggerProviderController = Mock.Of<ILogger<ProviderController>>();
         var loggerServiceController = Mock.Of<ILogger<ServiceController>>();
         var providerController = new ProviderController(loggerProviderController, commonService, unitOfWork);
-        var serviceController = new ServiceController(loggerServiceController, commonService);
+        var serviceController = new ServiceController(loggerServiceController, commonService, Mock.Of<IUnitOfWork>());
 
         return (serviceController, providerController);
     }

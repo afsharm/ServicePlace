@@ -4,6 +4,7 @@ using ServicePlace.Service.Contracts;
 using ServicePlace.Model.Queries;
 using ServicePlace.Model.Results;
 using ServicePlace.Data;
+using ServicePlace.Data.Contracts;
 
 namespace ServicePlace.Web.Controllers;
 
@@ -13,13 +14,13 @@ public class ServiceController : ControllerBase
 {
     private readonly ILogger<ServiceController> _logger;
     private readonly ICommonService _commonService;
-    private readonly ServicePlaceContext _context;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public ServiceController(ILogger<ServiceController> logger, ICommonService commonService, ServicePlaceContext context)
+    public ServiceController(ILogger<ServiceController> logger, ICommonService commonService, IUnitOfWork unitOfWork)
     {
         _logger = logger;
         _commonService = commonService;
-        _context = context;
+        _unitOfWork = unitOfWork;
     }
 
     [HttpGet]
@@ -44,7 +45,7 @@ public class ServiceController : ControllerBase
     {
         await _commonService.DeleteServiceAsync(serviceId);
 
-        await _context.SaveChangesAsync();
+        await _unitOfWork.SaveChangesAsync();
 
         return Ok();
     }
