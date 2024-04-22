@@ -40,4 +40,18 @@ public class ServiceRepository : IServiceRepository
 
         service.IsDeleted = true;
     }
+
+    public async Task<ServiceDisplay?> GetServiceByIdAsync(int serviceId)
+    {
+        var service = await _context.Services
+            .Where(x => x.Id == serviceId)
+            .Select(x => new ServiceDisplay
+            {
+                Id = x.Id,
+                Name = x.Name
+            })
+            .FirstOrDefaultAsync();
+
+        return service;
+    }
 }

@@ -30,6 +30,13 @@ public class ServiceController : ControllerBase
         return response;
     }
 
+    [HttpGet("{serviceId}")]
+    public async Task<IActionResult> GetServiceByIdAsync([FromRoute] int serviceId)
+    {
+        var response = await _commonService.GetServiceByIdAsync(serviceId);
+        return Ok(response);
+    }
+
     [HttpPost]
     public async Task<CreateServiceResult> CreateServiceAsync(CreateService command)
     {

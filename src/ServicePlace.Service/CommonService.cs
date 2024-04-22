@@ -114,4 +114,9 @@ public class CommonService : ICommonService
     {
         await _serviceRepository.DeleteAsync(serviceId);
     }
+
+    public async Task<ServiceDisplay?> GetServiceByIdAsync(int serviceId)
+    {
+        return await _serviceRepository.GetServiceByIdAsync(serviceId);
+    }
 }
