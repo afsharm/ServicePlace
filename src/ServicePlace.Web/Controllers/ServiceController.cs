@@ -3,6 +3,7 @@ using ServicePlace.Model.Commands;
 using ServicePlace.Service.Contracts;
 using ServicePlace.Model.Queries;
 using ServicePlace.Model.Results;
+using ServicePlace.Data;
 
 namespace ServicePlace.Web.Controllers;
 
@@ -12,11 +13,13 @@ public class ServiceController : ControllerBase
 {
     private readonly ILogger<ServiceController> _logger;
     private readonly ICommonService _commonService;
+    private readonly ServicePlaceContext _context;
 
-    public ServiceController(ILogger<ServiceController> logger, ICommonService commonService)
+    public ServiceController(ILogger<ServiceController> logger, ICommonService commonService, ServicePlaceContext context)
     {
         _logger = logger;
         _commonService = commonService;
+        _context = context;
     }
 
     [HttpGet]
@@ -34,5 +37,15 @@ public class ServiceController : ControllerBase
         //SaveChanges is called in the service layer directly in order to get the DB generated Id
 
         return result;
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> DeleteServiceAsync([FromQuery] int serviceId)
+    {
+        await _commonService.DeleteServiceAsync(serviceId);
+
+        await _context.SaveChangesAsync();
+
+        return Ok();
     }
 }

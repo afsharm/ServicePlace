@@ -12,4 +12,5 @@ public interface ICommonService
     Task<IEnumerable<ProviderDisplay>> GetProviderByServiceIdAsync(int serviceId);
     Task UpdateProviderAsync(int id, string name);
     Task<CreateProviderResult> CreateProviderAsync(CreateProviderCommand? command);
+    Task DeleteServiceAsync(int serviceId);
 }

@@ -17,6 +17,7 @@ public class ServiceRepository : IServiceRepository
     public async Task<IEnumerable<ServiceDisplay>> GetServicesAsync()
     {
         return await _context.Services
+            .Where(x => x.IsDeleted == false)
             .Select(x => new ServiceDisplay
             {
                 Id = x.Id,
@@ -28,5 +29,15 @@ public class ServiceRepository : IServiceRepository
     public async Task AddAsync(Service service)
     {
         await _context.Services.AddAsync(service);
+    }
+
+    public async Task DeleteAsync(int serviceId)
+    {
+        var service = await _context.Services.Where(x => x.Id == serviceId).FirstOrDefaultAsync();
+
+        if (service == null)
+            throw new Exception($"Service not found with the given Id {serviceId}");
+
+        service.IsDeleted = true;
     }
 }

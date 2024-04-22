@@ -109,4 +109,9 @@ public class CommonService : ICommonService
         if (name.Length < 3 || name.Length > 100)
             throw new ArgumentException(ErrorMessageConstants.ShouldNotBeSmaller, nameof(name));
     }
+
+    public async Task DeleteServiceAsync(int serviceId)
+    {
+        await _serviceRepository.DeleteAsync(serviceId);
+    }
 }

@@ -7,4 +7,5 @@ public class Service
 
     [MaxLength(100)]
     public string? Name { get; set; }
+    public bool IsDeleted { get; set; }
 }
