@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using ServicePlace.Model.Queries;
 using ServicePlace.Data.Contracts;
 using ServicePlace.Model.Entities;
+using ServicePlace.Model.Commands;
 
 namespace ServicePlace.Data.Repositories;
 
@@ -39,6 +40,8 @@ public class ServiceRepository : IServiceRepository
             throw new Exception($"Service not found with the given Id {serviceId}");
 
         service.IsDeleted = true;
+
+        _context.Services.Update(service);
     }
 
     public async Task<ServiceDisplay?> GetServiceByIdAsync(int serviceId)
@@ -53,5 +56,17 @@ public class ServiceRepository : IServiceRepository
             .FirstOrDefaultAsync();
 
         return service;
+    }
+
+    public async Task UpdateServiceAsync(UpdateService command)
+    {
+        var service = await _context.Services.Where(x => x.Id == command.Id).FirstOrDefaultAsync();
+
+        if (service == null)
+            throw new Exception($"Service not found with the given Id {command.Id}");
+
+        service.Name = command.Name;
+
+        _context.Services.Update(service);
     }
 }

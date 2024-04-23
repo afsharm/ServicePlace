@@ -56,4 +56,14 @@ public class ServiceController : ControllerBase
 
         return Ok();
     }
+
+    [HttpPut]
+    public async Task<IActionResult> UpdateServiceAsync(UpdateService command)
+    {
+        await _commonService.UpdateServiceAsync(command);
+
+        await _unitOfWork.SaveChangesAsync();
+
+        return NoContent();
+    }
 }

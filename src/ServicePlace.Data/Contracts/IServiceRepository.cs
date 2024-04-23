@@ -1,3 +1,4 @@
+using ServicePlace.Model.Commands;
 using ServicePlace.Model.Entities;
 using ServicePlace.Model.Queries;
 
@@ -9,4 +10,5 @@ public interface IServiceRepository
     Task AddAsync(Service service);
     Task DeleteAsync(int serviceId);
     Task<ServiceDisplay?> GetServiceByIdAsync(int serviceId);
+    Task UpdateServiceAsync(UpdateService command);
 }
