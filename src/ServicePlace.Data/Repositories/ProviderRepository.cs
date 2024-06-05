@@ -20,7 +20,8 @@ public class ProviderRepository : IProviderRepository
             .Select(x => new ProviderDisplay
             {
                 Id = x.Id,
-                Name = x.Name
+                Name = x.Name,
+                ServiceName = x.Service.Name
             })
             .ToListAsync();
     }
