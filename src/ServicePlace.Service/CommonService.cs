@@ -63,15 +63,15 @@ public class CommonService : ICommonService
         return await _providerRepository.GetProviderByServiceIdAsync(serviceId);
     }
 
-    public async Task UpdateProviderAsync(int id, string name)
+    public async Task UpdateProviderAsync(UpdateProvider command)
     {
-        _logger.LogDebug($"UpdateProviderAsync => {id}, {name}");
-        var provider = await _providerRepository.GetProviderAsync(id);
+        _logger.LogDebug($"UpdateProviderAsync => {command.Id}, {command.Name}");
+        var provider = await _providerRepository.GetProviderAsync(command.Id);
 
         if (provider == null)
             throw new NotFoundException();
 
-        provider.Name = name;
+        provider.Name = command.Name;
         _providerRepository.UpdateProvider(provider);
     }
 

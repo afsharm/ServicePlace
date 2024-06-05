@@ -41,19 +41,19 @@ public class ProviderController : ControllerBase
         return await _commonService.GetProviderByServiceIdAsync(serviceId);
     }
 
-    [HttpPut("{id}/{name}")]
-    public async Task<IActionResult> UpdateAsync(int id, string name)
+    [HttpPut]
+    public async Task<IActionResult> UpdateAsync(UpdateProvider command)
     {
         try
         {
-            await _commonService.UpdateProviderAsync(id, name);
+            await _commonService.UpdateProviderAsync(command);
             await _unitOfWork.SaveChangesAsync();
         }
         catch (NotFoundException)
         {
             return NotFound();
         }
-        catch (System.Exception)
+        catch (Exception)
         {
             throw;
         }

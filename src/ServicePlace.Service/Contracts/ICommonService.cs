@@ -10,7 +10,7 @@ public interface ICommonService
     Task<IEnumerable<ServiceDisplay>> GetServicesAsync();
     Task<CreateServiceResult> CreateServiceAsync(CreateService command);
     Task<IEnumerable<ProviderDisplay>> GetProviderByServiceIdAsync(int serviceId);
-    Task UpdateProviderAsync(int id, string name);
+    Task UpdateProviderAsync(UpdateProvider command);
     Task<CreateProviderResult> CreateProviderAsync(CreateProviderCommand? command);
     Task DeleteServiceAsync(int serviceId);
     Task<ServiceDisplay?> GetServiceByIdAsync(int serviceId);
