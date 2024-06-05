@@ -11,4 +11,5 @@ public interface IProviderRepository
     void UpdateProvider(Provider provider);
     Task<bool> AnyDuplicateAsync(string? name, int? serviceId);
     Task AddProviderAsync(Provider newProvider);
+    Task<ProviderDisplay?> GetProviderByIdAsync(int providerId);
 }

@@ -60,4 +60,20 @@ public class ProviderRepository : IProviderRepository
     {
         await _context.Providers.AddAsync(newProvider);
     }
+
+    public async Task<ProviderDisplay?> GetProviderByIdAsync(int providerId)
+    {
+        var provider = await _context.Providers
+            .Where(x => x.Id == providerId)
+            .Select(x => new ProviderDisplay
+            {
+                Id = x.Id,
+                Name = x.Name,
+                ServiceId = x.ServiceId,
+                ServiceName = x.Service.Name
+            })
+            .FirstOrDefaultAsync();
+
+        return provider;
+    }
 }

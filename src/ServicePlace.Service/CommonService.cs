@@ -124,4 +124,9 @@ public class CommonService : ICommonService
     {
         await _serviceRepository.UpdateServiceAsync(command);
     }
+
+    public async Task<ProviderDisplay?> GetProviderByIdAsync(int providerId)
+    {
+        return await _providerRepository.GetProviderByIdAsync(providerId);
+    }
 }

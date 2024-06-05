@@ -29,7 +29,13 @@ public class ProviderController : ControllerBase
         return await _commonService.GetAllProvidersAsync();
     }
 
-    [HttpGet("{serviceId}")]
+    [HttpGet("{providerId}")]
+    public async Task<ProviderDisplay?> GetProviderAsync(int providerId)
+    {
+        return await _commonService.GetProviderByIdAsync(providerId);
+    }
+
+    [HttpGet("byServiceId/{serviceId}")]
     public async Task<IEnumerable<ProviderDisplay>> GetProviderByServiceIdAsync(int serviceId)
     {
         return await _commonService.GetProviderByServiceIdAsync(serviceId);
