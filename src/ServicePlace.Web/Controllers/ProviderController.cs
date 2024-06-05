@@ -24,9 +24,9 @@ public class ProviderController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<ProviderDisplay>> GetAllProvidersAsync()
+    public async Task<PagingResult<ProviderDisplay>> GetAllProvidersAsync([FromQuery] ProviderPagingQuery query)
     {
-        return await _commonService.GetAllProvidersAsync();
+        return await _commonService.GetAllProvidersAsync(query);
     }
 
     [HttpGet("{providerId}")]

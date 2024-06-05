@@ -6,7 +6,7 @@ namespace ServicePlace.Service.Contracts;
 
 public interface ICommonService
 {
-    Task<IEnumerable<ProviderDisplay>> GetAllProvidersAsync();
+    Task<PagingResult<ProviderDisplay>> GetAllProvidersAsync(ProviderPagingQuery query);
     Task<IEnumerable<ServiceDisplay>> GetServicesAsync();
     Task<CreateServiceResult> CreateServiceAsync(CreateService command);
     Task<IEnumerable<ProviderDisplay>> GetProviderByServiceIdAsync(int serviceId);

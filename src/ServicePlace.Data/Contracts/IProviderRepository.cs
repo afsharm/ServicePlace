@@ -1,11 +1,12 @@
 using ServicePlace.Model.Entities;
 using ServicePlace.Model.Queries;
+using ServicePlace.Model.Results;
 
 namespace ServicePlace.Data.Contracts;
 
 public interface IProviderRepository
 {
-    Task<IEnumerable<ProviderDisplay>> GetAllProvidersAsync();
+    Task<PagingResult<ProviderDisplay>> GetAllProvidersAsync(ProviderPagingQuery query);
     Task<IEnumerable<ProviderDisplay>> GetProviderByServiceIdAsync(int serviceId);
     Task<Provider?> GetProviderAsync(int id);
     void UpdateProvider(Provider provider);

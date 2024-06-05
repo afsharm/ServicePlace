@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using ServicePlace.Model.Queries;
 using ServicePlace.Data.Contracts;
 using ServicePlace.Model.Entities;
+using ServicePlace.Model.Results;
 
 namespace ServicePlace.Data.Repositories;
 
@@ -14,17 +15,30 @@ public class ProviderRepository : IProviderRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<ProviderDisplay>> GetAllProvidersAsync()
+    public async Task<PagingResult<ProviderDisplay>> GetAllProvidersAsync(ProviderPagingQuery query)
     {
-        return await _context.Providers
-            .Where(x => x.IsDeleted == false)
-            .Select(x => new ProviderDisplay
-            {
-                Id = x.Id,
-                Name = x.Name,
-                ServiceName = x.Service.Name
-            })
-            .ToListAsync();
+        var providersQuery = _context.Providers.Where(x => x.IsDeleted == false);
+        
+        if (string.IsNullOrWhiteSpace(query.Criteria) == false)
+            providersQuery = providersQuery.Where(x => x.Name.Contains(query.Criteria) || x.Service.Name.Contains(query.Criteria));
+
+        var result = new PagingResult<ProviderDisplay>
+        {
+
+            Items = await providersQuery
+                .Select(x => new ProviderDisplay
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    ServiceName = x.Service.Name
+                })
+                .Skip((query.PageNumber - 1) * query.PageSize)
+                .Take(query.PageSize)
+                .ToListAsync(),
+            TotalCount = await providersQuery.CountAsync()
+        };
+
+        return result;
     }
 
     public async Task<IEnumerable<ProviderDisplay>> GetProviderByServiceIdAsync(int serviceId)

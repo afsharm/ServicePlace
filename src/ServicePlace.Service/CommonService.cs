@@ -24,9 +24,9 @@ public class CommonService : ICommonService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<IEnumerable<ProviderDisplay>> GetAllProvidersAsync()
+    public async Task<PagingResult<ProviderDisplay>> GetAllProvidersAsync(ProviderPagingQuery query)
     {
-        return await _providerRepository.GetAllProvidersAsync();
+        return await _providerRepository.GetAllProvidersAsync(query);
     }
 
     public async Task<IEnumerable<ServiceDisplay>> GetServicesAsync()
