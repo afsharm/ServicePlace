@@ -75,4 +75,14 @@ public class ProviderController : ControllerBase
             throw;
         }
     }
+
+    [HttpDelete]
+    public async Task<IActionResult> DeleteProviderAsync([FromQuery] int providerId)
+    {
+        await _commonService.DeleteProviderAsync(providerId);
+
+        await _unitOfWork.SaveChangesAsync();
+
+        return NoContent();
+    }
 }

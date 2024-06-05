@@ -16,4 +16,5 @@ public interface ICommonService
     Task<ServiceDisplay?> GetServiceByIdAsync(int serviceId);
     Task UpdateServiceAsync(UpdateService command);
     Task<ProviderDisplay?> GetProviderByIdAsync(int providerId);
+    Task DeleteProviderAsync(int providerId);
 }

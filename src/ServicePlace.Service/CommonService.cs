@@ -129,4 +129,9 @@ public class CommonService : ICommonService
     {
         return await _providerRepository.GetProviderByIdAsync(providerId);
     }
+
+    public async Task DeleteProviderAsync(int providerId)
+    {
+        await _providerRepository.DeleteAsync(providerId);
+    }
 }

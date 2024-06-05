@@ -12,4 +12,5 @@ public interface IProviderRepository
     Task<bool> AnyDuplicateAsync(string? name, int? serviceId);
     Task AddProviderAsync(Provider newProvider);
     Task<ProviderDisplay?> GetProviderByIdAsync(int providerId);
+    Task DeleteAsync(int providerId);
 }

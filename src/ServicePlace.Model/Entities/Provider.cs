@@ -11,4 +11,5 @@ public class Provider
     public Service Service { get; set; } = null!;
 
     public int ServiceId { get; set; }
+    public bool IsDeleted { get; set; }
 }
