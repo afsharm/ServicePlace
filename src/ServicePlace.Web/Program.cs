@@ -1,8 +1,8 @@
 using ServicePlace.Data;
 using ServicePlace.Data.Repositories;
 using ServicePlace.Data.Contracts;
-using ServicePlace.Service.Contracts;
-using ServicePlace.Service;
+using ServicePlace.Core.Contracts;
+using ServicePlace.Core;
 using ServicePlace.Web;
 
 var AllowAnyOrigin = "_allowAnyOrigin";

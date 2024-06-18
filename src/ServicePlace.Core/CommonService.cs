@@ -5,9 +5,9 @@ using Microsoft.Extensions.Logging;
 using ServicePlace.Model.Results;
 using ServicePlace.Model.Constants;
 using ServicePlace.Data.Contracts;
-using ServicePlace.Service.Contracts;
+using ServicePlace.Core.Contracts;
 
-namespace ServicePlace.Service;
+namespace ServicePlace.Core;
 
 public class CommonService : ICommonService
 {

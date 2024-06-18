@@ -1,10 +1,10 @@
-using ServicePlace.Service;
+using ServicePlace.Core;
 using ServicePlace.Model.Commands;
 using Moq;
 using Microsoft.Extensions.Logging;
 using ServicePlace.Data.Repositories;
 using ServicePlace.Data.Contracts;
-using ServicePlace.Service.Contracts;
+using ServicePlace.Core.Contracts;
 using ServicePlace.Data;
 using ServicePlace.UnitTest.Common;
 

@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicePlace.Model", "Servi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicePlace.Web", "ServicePlace.Web\ServicePlace.Web.csproj", "{356F672A-1C34-4D35-BA01-AC834B1F26E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicePlace.Service", "ServicePlace.Service\ServicePlace.Service.csproj", "{06E35E94-6C7C-4C84-83C2-9F10DBA395DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicePlace.Core", "ServicePlace.Core\ServicePlace.Core.csproj", "{06E35E94-6C7C-4C84-83C2-9F10DBA395DC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicePlace.UnitTest", "ServicePlace.UnitTest\ServicePlace.UnitTest.csproj", "{29B37208-0DA9-4E63-807A-97DA99AC569D}"
 EndProject

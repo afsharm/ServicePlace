@@ -5,8 +5,8 @@ using ServicePlace.Data;
 using ServicePlace.Data.Contracts;
 using ServicePlace.Model.Commands;
 using ServicePlace.Model.Queries;
-using ServicePlace.Service;
-using ServicePlace.Service.Contracts;
+using ServicePlace.Core;
+using ServicePlace.Core.Contracts;
 using ServicePlace.Web.Controllers;
 
 namespace ServicePlace.UnitTest.Controllers;
