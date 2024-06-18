@@ -22,8 +22,8 @@ public class TestDatabaseFixture
                     context.Database.EnsureCreated();
 
                     context.AddRange(
-                        new ServicePlace.Model.Entities.Service { Name = "Service 1" },
-                        new ServicePlace.Model.Entities.Service { Name = "Service 2" });
+                        new ServicePlace.Data.Entities.Service { Name = "Service 1" },
+                        new ServicePlace.Data.Entities.Service { Name = "Service 2" });
                     context.SaveChanges();
                 }
 

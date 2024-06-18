@@ -1,4 +1,3 @@
-using ServicePlace.Model.Entities;
 
 namespace ServicePlace.Model.Queries;
 

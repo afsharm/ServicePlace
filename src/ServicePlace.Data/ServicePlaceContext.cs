@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ServicePlace.Model.Entities;
+using ServicePlace.Data.Entities;
 
 namespace ServicePlace.Data;
 public class ServicePlaceContext : DbContext

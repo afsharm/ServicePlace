@@ -37,7 +37,7 @@ public class CommonService : ICommonService
     public async Task<CreateServiceResult> CreateServiceAsync(CreateService command)
     {
         ValidateCreateService(command);
-        var service = new Model.Entities.Service
+        var service = new Data.Entities.Service
         {
             Name = command.Name
         };
@@ -90,7 +90,7 @@ public class CommonService : ICommonService
         if (anyDuplicate)
             throw new Exception(ErrorMessageConstants.DuplicateServiceName);
 
-        var newProvider = new Model.Entities.Provider { Name = command.Name, ServiceId = command.ServiceId.Value };
+        var newProvider = new Data.Entities.Provider { Name = command.Name, ServiceId = command.ServiceId.Value };
 
         await _providerRepository.AddProviderAsync(newProvider);
         await _unitOfWork.SaveChangesAsync();

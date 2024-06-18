@@ -1,4 +1,4 @@
-using ServicePlace.Model.Entities;
+using ServicePlace.Data.Entities;
 using ServicePlace.Model.Queries;
 using ServicePlace.Model.Results;
 

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ServicePlace.Model.Queries;
 using ServicePlace.Data.Contracts;
-using ServicePlace.Model.Entities;
+using ServicePlace.Data.Entities;
 using ServicePlace.Model.Results;
 
 namespace ServicePlace.Data.Repositories;
