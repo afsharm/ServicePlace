@@ -1,4 +1,4 @@
-namespace ServicePlace.Model.Results;
+namespace ServicePlace.Core.Results;
 
 public class CreateProviderResult
 {

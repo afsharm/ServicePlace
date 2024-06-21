@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using ServicePlace.Model.Queries;
+using ServicePlace.Core.Queries;
 using ServicePlace.Data.Contracts;
 using ServicePlace.Data.Entities;
-using ServicePlace.Model.Results;
+using ServicePlace.Core.Results;
+using ServicePlace.Core.Contracts;
 
 namespace ServicePlace.Data.Repositories;
 
@@ -18,7 +19,7 @@ public class ProviderRepository : IProviderRepository
     public async Task<PagingResult<ProviderDisplay>> GetAllProvidersAsync(ProviderPagingQuery query)
     {
         var providersQuery = _context.Providers.Where(x => x.IsDeleted == false);
-        
+
         if (string.IsNullOrWhiteSpace(query.Criteria) == false)
             providersQuery = providersQuery.Where(x => x.Name.Contains(query.Criteria) || x.Service.Name.Contains(query.Criteria));
 
@@ -53,16 +54,25 @@ public class ProviderRepository : IProviderRepository
             .ToListAsync();
     }
 
-    public async Task<Provider?> GetProviderAsync(int id)
+    public async Task<ServicePlace.Core.DomainEntities.Provider?> GetProviderAsync(int id)
     {
         var provider = await _context.Providers.Where(x => x.Id == id && x.IsDeleted == false).FirstOrDefaultAsync();
 
-        return provider;
+        //todo: do a correct mapping
+        var databaseProvider = new ServicePlace.Core.DomainEntities.Provider
+        {
+            Id = provider.Id,
+            Name = provider.Name,
+            ServiceId = provider.ServiceId
+        };
+        return databaseProvider;
     }
 
-    public void UpdateProvider(Provider provider)
+    public void UpdateProvider(ServicePlace.Core.DomainEntities.Provider provider)
     {
-        _context.Providers.Update(provider);
+        //todo: correctly map domain entity to database entity
+        var databaseEntity = new ServicePlace.Data.Entities.Provider { Id = provider.Id, Name = provider.Name, ServiceId = provider.ServiceId };
+        _context.Providers.Update(databaseEntity);
     }
 
     public async Task<bool> AnyDuplicateAsync(string? name, int? serviceId)
@@ -71,9 +81,11 @@ public class ProviderRepository : IProviderRepository
         return anyDuplicate;
     }
 
-    public async Task AddProviderAsync(Provider newProvider)
+    public async Task AddProviderAsync(ServicePlace.Core.DomainEntities.Provider newProvider)
     {
-        await _context.Providers.AddAsync(newProvider);
+        //todo: correctly map domain entity to database entity
+        var databaseNewProvider = new ServicePlace.Data.Entities.Provider { Id = newProvider.Id, Name = newProvider.Name, ServiceId = newProvider.ServiceId };
+        await _context.Providers.AddAsync(databaseNewProvider);
     }
 
     public async Task<ProviderDisplay?> GetProviderByIdAsync(int providerId)

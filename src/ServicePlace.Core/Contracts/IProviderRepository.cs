@@ -1,8 +1,8 @@
-using ServicePlace.Data.Entities;
-using ServicePlace.Model.Queries;
-using ServicePlace.Model.Results;
+using ServicePlace.Core.DomainEntities;
+using ServicePlace.Core.Queries;
+using ServicePlace.Core.Results;
 
-namespace ServicePlace.Data.Contracts;
+namespace ServicePlace.Core.Contracts;
 
 public interface IProviderRepository
 {

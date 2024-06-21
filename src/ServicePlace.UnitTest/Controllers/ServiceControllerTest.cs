@@ -2,7 +2,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using ServicePlace.Data;
 using ServicePlace.Data.Repositories;
-using ServicePlace.Model.Commands;
+using ServicePlace.Core.Commands;
 using ServicePlace.Data.Contracts;
 using ServicePlace.Core.Contracts;
 using ServicePlace.Core;
@@ -25,7 +25,7 @@ public class ServiceControllerTest : IClassFixture<TestDatabaseFixture>
         IServiceRepository serviceRepository = new ServiceRepository(context);
         IProviderRepository providerRepository = new ProviderRepository(context);
         IUnitOfWork unitOfWork = new UnitOfWork(context);
-        ICommonService commonService = new CommonService(loggerCommonService, serviceRepository, providerRepository, unitOfWork);
+        ICommonService commonService = new CommonService(loggerCommonService, serviceRepository, providerRepository);
         var loggerServiceController = Mock.Of<ILogger<ServiceController>>();
         var serviceController = new ServiceController(loggerServiceController, commonService, Mock.Of<IUnitOfWork>());
         return serviceController;

@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using ServicePlace.Model.Queries;
+using ServicePlace.Core.Queries;
 using ServicePlace.Data.Contracts;
 using ServicePlace.Data.Entities;
-using ServicePlace.Model.Commands;
+using ServicePlace.Core.Commands;
+using ServicePlace.Core.Contracts;
 
 namespace ServicePlace.Data.Repositories;
 
@@ -27,9 +28,16 @@ public class ServiceRepository : IServiceRepository
             .ToListAsync();
     }
 
-    public async Task AddAsync(Service service)
+    public async Task AddAsync(ServicePlace.Core.DomainEntities.Service service)
     {
-        await _context.Services.AddAsync(service);
+        //todo: use correct mapping
+        var databaseService = new ServicePlace.Data.Entities.Service
+        {
+            Id = service.Id,
+            Name = service.Name
+        };
+
+        await _context.Services.AddAsync(databaseService);
     }
 
     public async Task DeleteAsync(int serviceId)

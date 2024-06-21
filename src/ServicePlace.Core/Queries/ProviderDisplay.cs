@@ -1,5 +1,5 @@
 
-namespace ServicePlace.Model.Queries;
+namespace ServicePlace.Core.Queries;
 
 public class ProviderDisplay
 {

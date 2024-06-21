@@ -1,10 +1,9 @@
-﻿using ServicePlace.Model.Queries;
-using ServicePlace.Model.Commands;
-using ServicePlace.Model;
+﻿using ServicePlace.Core.Queries;
+using ServicePlace.Core.Commands;
+using ServicePlace.Core;
 using Microsoft.Extensions.Logging;
-using ServicePlace.Model.Results;
-using ServicePlace.Model.Constants;
-using ServicePlace.Data.Contracts;
+using ServicePlace.Core.Results;
+using ServicePlace.Core.Constants;
 using ServicePlace.Core.Contracts;
 
 namespace ServicePlace.Core;
@@ -14,14 +13,16 @@ public class CommonService : ICommonService
     private readonly ILogger<CommonService> _logger;
     private readonly IServiceRepository _serviceRepository;
     private readonly IProviderRepository _providerRepository;
-    private readonly IUnitOfWork _unitOfWork;
+    //private readonly IUnitOfWork _unitOfWork;
 
-    public CommonService(ILogger<CommonService> logger, IServiceRepository serviceRepository, IProviderRepository providerRepository, IUnitOfWork unitOfWork)
+    public CommonService(ILogger<CommonService> logger, IServiceRepository serviceRepository, IProviderRepository providerRepository
+    //, IUnitOfWork unitOfWork
+    )
     {
         _logger = logger;
         _serviceRepository = serviceRepository;
         _providerRepository = providerRepository;
-        _unitOfWork = unitOfWork;
+        //_unitOfWork = unitOfWork;
     }
 
     public async Task<PagingResult<ProviderDisplay>> GetAllProvidersAsync(ProviderPagingQuery query)
@@ -37,14 +38,15 @@ public class CommonService : ICommonService
     public async Task<CreateServiceResult> CreateServiceAsync(CreateService command)
     {
         ValidateCreateService(command);
-        var service = new Data.Entities.Service
+        var service = new Core.DomainEntities.Service
         {
             Name = command.Name
         };
         await _serviceRepository.AddAsync(service);
 
         //doing save changes is necessary here because we need to return database generated id without exposing Entities to upper layers
-        await _unitOfWork.SaveChangesAsync();
+        //todo: database details should not be known by business logic
+        //await _unitOfWork.SaveChangesAsync();
 
         return new CreateServiceResult
         {
@@ -90,10 +92,11 @@ public class CommonService : ICommonService
         if (anyDuplicate)
             throw new Exception(ErrorMessageConstants.DuplicateServiceName);
 
-        var newProvider = new Data.Entities.Provider { Name = command.Name, ServiceId = command.ServiceId.Value };
+        var newProvider = new Core.DomainEntities.Provider { Name = command.Name, ServiceId = command.ServiceId.Value };
 
         await _providerRepository.AddProviderAsync(newProvider);
-        await _unitOfWork.SaveChangesAsync();
+        //todo: business logic should not know about database details
+        //await _unitOfWork.SaveChangesAsync();
 
         return new CreateProviderResult { ProviderId = newProvider.Id };
     }

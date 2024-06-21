@@ -1,7 +1,6 @@
+namespace ServicePlace.Core.Commands;
 
-namespace ServicePlace.Model.Queries;
-
-public class ServiceDisplay
+public class UpdateService
 {
     public int Id { get; set; }
     public string? Name { get; set; }

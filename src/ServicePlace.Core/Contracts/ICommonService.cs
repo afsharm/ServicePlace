@@ -1,6 +1,6 @@
-using ServicePlace.Model.Commands;
-using ServicePlace.Model.Queries;
-using ServicePlace.Model.Results;
+using ServicePlace.Core.Commands;
+using ServicePlace.Core.Queries;
+using ServicePlace.Core.Results;
 
 namespace ServicePlace.Core.Contracts;
 

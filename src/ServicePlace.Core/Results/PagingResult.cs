@@ -1,6 +1,6 @@
-using ServicePlace.Model.Queries;
+using ServicePlace.Core.Queries;
 
-namespace ServicePlace.Model.Results;
+namespace ServicePlace.Core.Results;
 
 public class PagingResult<T>
 {

@@ -1,4 +1,4 @@
-namespace ServicePlace.Model.Commands;
+namespace ServicePlace.Core.Commands;
 
 public class CreateService
 {

@@ -1,4 +1,4 @@
-namespace ServicePlace.Model.Constants;
+namespace ServicePlace.Core.Constants;
 
 public class ErrorMessageConstants
 {

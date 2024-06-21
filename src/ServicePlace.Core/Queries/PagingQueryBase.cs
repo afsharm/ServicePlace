@@ -1,4 +1,4 @@
-namespace ServicePlace.Model.Queries;
+namespace ServicePlace.Core.Queries;
 
 
 public abstract class PagingQueryBase

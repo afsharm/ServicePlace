@@ -1,4 +1,4 @@
-namespace ServicePlace.Model;
+namespace ServicePlace.Core;
 
 [System.Serializable]
 public class NotFoundException : System.Exception

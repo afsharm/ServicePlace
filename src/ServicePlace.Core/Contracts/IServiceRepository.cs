@@ -1,8 +1,8 @@
-using ServicePlace.Model.Commands;
-using ServicePlace.Data.Entities;
-using ServicePlace.Model.Queries;
+using ServicePlace.Core.Commands;
+using ServicePlace.Core.DomainEntities;
+using ServicePlace.Core.Queries;
 
-namespace ServicePlace.Data.Contracts;
+namespace ServicePlace.Core.Contracts;
 
 public interface IServiceRepository
 {

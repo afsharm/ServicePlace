@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using ServicePlace.Model;
-using ServicePlace.Model.Commands;
+using ServicePlace.Core;
+using ServicePlace.Core.Commands;
 using ServicePlace.Core.Contracts;
-using ServicePlace.Model.Queries;
-using ServicePlace.Model.Results;
+using ServicePlace.Core.Queries;
+using ServicePlace.Core.Results;
 using ServicePlace.Data.Contracts;
 
 namespace ServicePlace.Web.Controllers;

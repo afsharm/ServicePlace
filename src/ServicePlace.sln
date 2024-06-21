@@ -5,8 +5,6 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicePlace.Data", "ServicePlace.Data\ServicePlace.Data.csproj", "{B701829C-41FF-4F59-BA42-9CF93393C08F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicePlace.Model", "ServicePlace.Model\ServicePlace.Model.csproj", "{49B2F168-0C3E-45C2-9593-D786F6769DDE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicePlace.Web", "ServicePlace.Web\ServicePlace.Web.csproj", "{356F672A-1C34-4D35-BA01-AC834B1F26E7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicePlace.Core", "ServicePlace.Core\ServicePlace.Core.csproj", "{06E35E94-6C7C-4C84-83C2-9F10DBA395DC}"
