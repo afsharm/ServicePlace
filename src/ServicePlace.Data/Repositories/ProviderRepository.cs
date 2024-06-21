@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using ServicePlace.Core.Queries;
-using ServicePlace.Data.Contracts;
-using ServicePlace.Data.Entities;
 using ServicePlace.Core.Results;
 using ServicePlace.Core.Contracts;
+using ServicePlace.Core.DomainEntities;
+using ServicePlace.Data.DatabaseEntities;
 
 namespace ServicePlace.Data.Repositories;
 
@@ -54,12 +54,12 @@ public class ProviderRepository : IProviderRepository
             .ToListAsync();
     }
 
-    public async Task<ServicePlace.Core.DomainEntities.Provider?> GetProviderAsync(int id)
+    public async Task<ProviderDomain?> GetProviderAsync(int id)
     {
         var provider = await _context.Providers.Where(x => x.Id == id && x.IsDeleted == false).FirstOrDefaultAsync();
 
         //todo: do a correct mapping
-        var databaseProvider = new ServicePlace.Core.DomainEntities.Provider
+        var databaseProvider = new ProviderDomain
         {
             Id = provider.Id,
             Name = provider.Name,
@@ -68,10 +68,10 @@ public class ProviderRepository : IProviderRepository
         return databaseProvider;
     }
 
-    public void UpdateProvider(ServicePlace.Core.DomainEntities.Provider provider)
+    public void UpdateProvider(ProviderDomain provider)
     {
         //todo: correctly map domain entity to database entity
-        var databaseEntity = new ServicePlace.Data.Entities.Provider { Id = provider.Id, Name = provider.Name, ServiceId = provider.ServiceId };
+        var databaseEntity = new Provider { Id = provider.Id, Name = provider.Name, ServiceId = provider.ServiceId };
         _context.Providers.Update(databaseEntity);
     }
 
@@ -81,10 +81,10 @@ public class ProviderRepository : IProviderRepository
         return anyDuplicate;
     }
 
-    public async Task AddProviderAsync(ServicePlace.Core.DomainEntities.Provider newProvider)
+    public async Task AddProviderAsync(ProviderDomain newProvider)
     {
         //todo: correctly map domain entity to database entity
-        var databaseNewProvider = new ServicePlace.Data.Entities.Provider { Id = newProvider.Id, Name = newProvider.Name, ServiceId = newProvider.ServiceId };
+        var databaseNewProvider = new Provider { Id = newProvider.Id, Name = newProvider.Name, ServiceId = newProvider.ServiceId };
         await _context.Providers.AddAsync(databaseNewProvider);
     }
 

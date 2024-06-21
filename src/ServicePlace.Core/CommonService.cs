@@ -38,7 +38,7 @@ public class CommonService : ICommonService
     public async Task<CreateServiceResult> CreateServiceAsync(CreateService command)
     {
         ValidateCreateService(command);
-        var service = new Core.DomainEntities.Service
+        var service = new Core.DomainEntities.ServiceDomain
         {
             Name = command.Name
         };
@@ -92,7 +92,7 @@ public class CommonService : ICommonService
         if (anyDuplicate)
             throw new Exception(ErrorMessageConstants.DuplicateServiceName);
 
-        var newProvider = new Core.DomainEntities.Provider { Name = command.Name, ServiceId = command.ServiceId.Value };
+        var newProvider = new Core.DomainEntities.ProviderDomain { Name = command.Name, ServiceId = command.ServiceId.Value };
 
         await _providerRepository.AddProviderAsync(newProvider);
         //todo: business logic should not know about database details

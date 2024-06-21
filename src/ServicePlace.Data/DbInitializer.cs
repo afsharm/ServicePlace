@@ -1,5 +1,5 @@
 using ServicePlace.Data;
-using ServicePlace.Data.Entities;
+using ServicePlace.Data.DatabaseEntities;
 
 public static class DbInitializer
 {

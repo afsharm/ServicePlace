@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ServicePlace.Data.Entities;
+namespace ServicePlace.Data.DatabaseEntities;
 public class Service
 {
     public int Id { get; set; }

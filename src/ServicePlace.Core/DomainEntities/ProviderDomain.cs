@@ -1,5 +1,5 @@
 namespace ServicePlace.Core.DomainEntities;
-public class Provider
+public class ProviderDomain
 {
     public string? Name { get; set; }
     public int ServiceId { get; set; }

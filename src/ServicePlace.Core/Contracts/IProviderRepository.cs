@@ -8,10 +8,10 @@ public interface IProviderRepository
 {
     Task<PagingResult<ProviderDisplay>> GetAllProvidersAsync(ProviderPagingQuery query);
     Task<IEnumerable<ProviderDisplay>> GetProviderByServiceIdAsync(int serviceId);
-    Task<Provider?> GetProviderAsync(int id);
-    void UpdateProvider(Provider provider);
+    Task<ProviderDomain?> GetProviderAsync(int id);
+    void UpdateProvider(ProviderDomain provider);
     Task<bool> AnyDuplicateAsync(string? name, int? serviceId);
-    Task AddProviderAsync(Provider newProvider);
+    Task AddProviderAsync(ProviderDomain newProvider);
     Task<ProviderDisplay?> GetProviderByIdAsync(int providerId);
     Task DeleteAsync(int providerId);
 }
