@@ -4,6 +4,7 @@ using ServicePlace.Core.Results;
 using ServicePlace.Core.Contracts;
 using ServicePlace.Core.DomainEntities;
 using ServicePlace.Data.DatabaseEntities;
+using System.Linq.Expressions;
 
 namespace ServicePlace.Data.Repositories;
 
@@ -58,21 +59,29 @@ public class ProviderRepository : IProviderRepository
     {
         var provider = await _context.Providers.Where(x => x.Id == id && x.IsDeleted == false).FirstOrDefaultAsync();
 
-        //todo: do a correct mapping
-        var databaseProvider = new ProviderDomain
+        if (provider == null)
+            throw new Exception($"No `Provider` found with the given id `{id}`");
+
+        var providerDomain = new ProviderDomain
         {
             Id = provider.Id,
             Name = provider.Name,
             ServiceId = provider.ServiceId
         };
-        return databaseProvider;
+
+        return providerDomain;
     }
 
-    public void UpdateProvider(ProviderDomain provider)
+    public void UpdateProvider(ProviderDomain providerDomain)
     {
-        //todo: correctly map domain entity to database entity
-        var databaseEntity = new Provider { Id = provider.Id, Name = provider.Name, ServiceId = provider.ServiceId };
-        _context.Providers.Update(databaseEntity);
+        var provider = new Provider
+        {
+            Id = providerDomain.Id,
+            Name = providerDomain.Name,
+            ServiceId = providerDomain.ServiceId
+        };
+
+        _context.Providers.Update(provider);
     }
 
     public async Task<bool> AnyDuplicateAsync(string? name, int? serviceId)
@@ -81,11 +90,15 @@ public class ProviderRepository : IProviderRepository
         return anyDuplicate;
     }
 
-    public async Task AddProviderAsync(ProviderDomain newProvider)
+    public async Task AddProviderAsync(ProviderDomain newProviderDomain)
     {
-        //todo: correctly map domain entity to database entity
-        var databaseNewProvider = new Provider { Id = newProvider.Id, Name = newProvider.Name, ServiceId = newProvider.ServiceId };
-        await _context.Providers.AddAsync(databaseNewProvider);
+        var provider = new Provider
+        {
+            Name = newProviderDomain.Name,
+            ServiceId = newProviderDomain.ServiceId
+        };
+
+        await _context.Providers.AddAsync(provider);
     }
 
     public async Task<ProviderDisplay?> GetProviderByIdAsync(int providerId)

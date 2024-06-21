@@ -28,16 +28,14 @@ public class ServiceRepository : IServiceRepository
             .ToListAsync();
     }
 
-    public async Task AddAsync(ServiceDomain service)
+    public async Task AddAsync(ServiceDomain serviceDomain)
     {
-        //todo: use correct mapping
-        var databaseService = new Service
+        var service = new Service
         {
-            Id = service.Id,
-            Name = service.Name
+            Name = serviceDomain.Name
         };
 
-        await _context.Services.AddAsync(databaseService);
+        await _context.Services.AddAsync(service);
     }
 
     public async Task DeleteAsync(int serviceId)
