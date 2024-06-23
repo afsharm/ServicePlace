@@ -27,7 +27,7 @@ public class ServiceControllerTest : IClassFixture<TestDatabaseFixture>
         IUnitOfWork unitOfWork = new UnitOfWork(context);
         ICommonService commonService = new CommonService(loggerCommonService, serviceRepository, providerRepository);
         var loggerServiceController = Mock.Of<ILogger<ServiceController>>();
-        var serviceController = new ServiceController(loggerServiceController, commonService, Mock.Of<IUnitOfWork>());
+        var serviceController = new ServiceController(loggerServiceController, commonService, unitOfWork);
         return serviceController;
     }
 

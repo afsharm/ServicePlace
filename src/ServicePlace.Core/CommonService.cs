@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using ServicePlace.Core.Results;
 using ServicePlace.Core.Constants;
 using ServicePlace.Core.Contracts;
+using ServicePlace.Core.DomainEntities;
 
 namespace ServicePlace.Core;
 
@@ -35,7 +36,7 @@ public class CommonService : ICommonService
     {
         ValidateCreateService(command);
 
-        var service = new Core.DomainEntities.ServiceDomain
+        var service = new ServiceDomain
         {
             Name = command.Name
         };
@@ -86,7 +87,7 @@ public class CommonService : ICommonService
         if (anyDuplicate)
             throw new Exception(ErrorMessageConstants.DuplicateServiceName);
 
-        var newProvider = new Core.DomainEntities.ProviderDomain { Name = command.Name, ServiceId = command.ServiceId.Value };
+        var newProvider = new ProviderDomain { Name = command.Name, ServiceId = command.ServiceId.Value };
 
         await _providerRepository.AddProviderAsync(newProvider);
 

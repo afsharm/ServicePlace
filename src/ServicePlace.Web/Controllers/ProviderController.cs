@@ -67,6 +67,7 @@ public class ProviderController : ControllerBase
         try
         {
             var result = await _commonService.CreateProviderAsync(command);
+            await _unitOfWork.SaveChangesAsync();
 
             return result;
         }

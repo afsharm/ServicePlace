@@ -3,7 +3,6 @@ using ServicePlace.Core.Commands;
 using ServicePlace.Core.Contracts;
 using ServicePlace.Core.Queries;
 using ServicePlace.Core.Results;
-using ServicePlace.Data;
 using ServicePlace.Data.Contracts;
 
 namespace ServicePlace.Web.Controllers;
@@ -42,7 +41,7 @@ public class ServiceController : ControllerBase
     {
         var result = await _commonService.CreateServiceAsync(command);
 
-        //SaveChanges is called in the service layer directly in order to get the DB generated Id
+        await _unitOfWork.SaveChangesAsync();
 
         return result;
     }
