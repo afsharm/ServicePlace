@@ -43,19 +43,19 @@ public class ProviderRepository : IProviderRepository
         return result;
     }
 
-    public async Task<IEnumerable<ProviderDisplay>> GetProviderByServiceIdAsync(int serviceId)
+    public async Task<IEnumerable<ProviderDisplay>> GetProviderByServiceIdAsync(Guid serviceId)
     {
         return await _context.Providers
             .Where(x => x.Service.Id == serviceId && x.IsDeleted == false)
             .Select(x => new ProviderDisplay
             {
                 Id = x.Id,
-                Name = x.Name
+                Name = x.Name,
             })
             .ToListAsync();
     }
 
-    public async Task<ProviderDomain?> GetProviderAsync(int id)
+    public async Task<ProviderDomain?> GetProviderAsync(Guid id)
     {
         var provider = await _context.Providers.Where(x => x.Id == id && x.IsDeleted == false).FirstOrDefaultAsync();
 
@@ -84,7 +84,7 @@ public class ProviderRepository : IProviderRepository
         _context.Providers.Update(provider);
     }
 
-    public async Task<bool> AnyDuplicateAsync(string? name, int? serviceId)
+    public async Task<bool> AnyDuplicateAsync(string? name, Guid? serviceId)
     {
         var anyDuplicate = await _context.Providers.AnyAsync(x => x.Name == name && x.ServiceId == serviceId);
         return anyDuplicate;
@@ -94,6 +94,7 @@ public class ProviderRepository : IProviderRepository
     {
         var provider = new Provider
         {
+            Id = newProviderDomain.Id,
             Name = newProviderDomain.Name,
             ServiceId = newProviderDomain.ServiceId
         };
@@ -101,7 +102,7 @@ public class ProviderRepository : IProviderRepository
         await _context.Providers.AddAsync(provider);
     }
 
-    public async Task<ProviderDisplay?> GetProviderByIdAsync(int providerId)
+    public async Task<ProviderDisplay?> GetProviderByIdAsync(Guid providerId)
     {
         var provider = await _context.Providers
             .Where(x => x.Id == providerId && x.IsDeleted == false)
@@ -117,7 +118,7 @@ public class ProviderRepository : IProviderRepository
         return provider;
     }
 
-    public async Task DeleteAsync(int providerId)
+    public async Task DeleteAsync(Guid providerId)
     {
         var provider = await _context.Providers.Where(x => x.Id == providerId).FirstOrDefaultAsync();
 

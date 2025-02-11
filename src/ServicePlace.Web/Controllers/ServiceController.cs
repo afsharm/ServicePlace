@@ -30,7 +30,7 @@ public class ServiceController : ControllerBase
     }
 
     [HttpGet("{serviceId}")]
-    public async Task<IActionResult> GetServiceByIdAsync([FromRoute] int serviceId)
+    public async Task<IActionResult> GetServiceByIdAsync([FromRoute] Guid serviceId)
     {
         var response = await _commonService.GetServiceByIdAsync(serviceId);
         return Ok(response);
@@ -47,7 +47,7 @@ public class ServiceController : ControllerBase
     }
 
     [HttpDelete]
-    public async Task<IActionResult> DeleteServiceAsync([FromQuery] int serviceId)
+    public async Task<IActionResult> DeleteServiceAsync([FromQuery] Guid serviceId)
     {
         await _commonService.DeleteServiceAsync(serviceId);
 

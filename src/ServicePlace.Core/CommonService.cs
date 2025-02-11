@@ -55,7 +55,7 @@ public class CommonService : ICommonService
             throw new Exception();
     }
 
-    public async Task<IEnumerable<ProviderDisplay>> GetProviderByServiceIdAsync(int serviceId)
+    public async Task<IEnumerable<ProviderDisplay>> GetProviderByServiceIdAsync(Guid serviceId)
     {
         return await _providerRepository.GetProviderByServiceIdAsync(serviceId);
     }
@@ -106,12 +106,12 @@ public class CommonService : ICommonService
             throw new ArgumentException(ErrorMessageConstants.ShouldNotBeSmaller, nameof(name));
     }
 
-    public async Task DeleteServiceAsync(int serviceId)
+    public async Task DeleteServiceAsync(Guid serviceId)
     {
         await _serviceRepository.DeleteAsync(serviceId);
     }
 
-    public async Task<ServiceDisplay?> GetServiceByIdAsync(int serviceId)
+    public async Task<ServiceDisplay?> GetServiceByIdAsync(Guid serviceId)
     {
         return await _serviceRepository.GetServiceByIdAsync(serviceId);
     }
@@ -121,12 +121,12 @@ public class CommonService : ICommonService
         await _serviceRepository.UpdateServiceAsync(command);
     }
 
-    public async Task<ProviderDisplay?> GetProviderByIdAsync(int providerId)
+    public async Task<ProviderDisplay?> GetProviderByIdAsync(Guid providerId)
     {
         return await _providerRepository.GetProviderByIdAsync(providerId);
     }
 
-    public async Task DeleteProviderAsync(int providerId)
+    public async Task DeleteProviderAsync(Guid providerId)
     {
         await _providerRepository.DeleteAsync(providerId);
     }

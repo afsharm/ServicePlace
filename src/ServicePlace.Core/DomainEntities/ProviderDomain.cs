@@ -1,7 +1,6 @@
 namespace ServicePlace.Core.DomainEntities;
-public class ProviderDomain
+public class ProviderDomain: BaseDomainEntity
 {
     public string? Name { get; set; }
-    public int ServiceId { get; set; }
-    public int Id { get; set; }
+    public Guid ServiceId { get; set; }
 }

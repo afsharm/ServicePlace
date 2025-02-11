@@ -30,13 +30,13 @@ public class ProviderController : ControllerBase
     }
 
     [HttpGet("{providerId}")]
-    public async Task<ProviderDisplay?> GetProviderAsync(int providerId)
+    public async Task<ProviderDisplay?> GetProviderAsync(Guid providerId)
     {
         return await _commonService.GetProviderByIdAsync(providerId);
     }
 
     [HttpGet("byServiceId/{serviceId}")]
-    public async Task<IEnumerable<ProviderDisplay>> GetProviderByServiceIdAsync(int serviceId)
+    public async Task<IEnumerable<ProviderDisplay>> GetProviderByServiceIdAsync(Guid serviceId)
     {
         return await _commonService.GetProviderByServiceIdAsync(serviceId);
     }
@@ -78,7 +78,7 @@ public class ProviderController : ControllerBase
     }
 
     [HttpDelete]
-    public async Task<IActionResult> DeleteProviderAsync([FromQuery] int providerId)
+    public async Task<IActionResult> DeleteProviderAsync([FromQuery] Guid providerId)
     {
         await _commonService.DeleteProviderAsync(providerId);
 

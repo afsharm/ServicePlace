@@ -8,7 +8,7 @@ public interface IServiceRepository
 {
     Task<IEnumerable<ServiceDisplay>> GetServicesAsync();
     Task AddAsync(ServiceDomain service);
-    Task DeleteAsync(int serviceId);
-    Task<ServiceDisplay?> GetServiceByIdAsync(int serviceId);
+    Task DeleteAsync(Guid serviceId);
+    Task<ServiceDisplay?> GetServiceByIdAsync(Guid serviceId);
     Task UpdateServiceAsync(UpdateService command);
 }

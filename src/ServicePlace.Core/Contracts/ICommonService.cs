@@ -9,12 +9,12 @@ public interface ICommonService
     Task<PagingResult<ProviderDisplay>> GetAllProvidersAsync(ProviderPagingQuery query);
     Task<IEnumerable<ServiceDisplay>> GetServicesAsync();
     Task<CreateServiceResult> CreateServiceAsync(CreateService command);
-    Task<IEnumerable<ProviderDisplay>> GetProviderByServiceIdAsync(int serviceId);
+    Task<IEnumerable<ProviderDisplay>> GetProviderByServiceIdAsync(Guid serviceId);
     Task UpdateProviderAsync(UpdateProvider command);
     Task<CreateProviderResult> CreateProviderAsync(CreateProviderCommand? command);
-    Task DeleteServiceAsync(int serviceId);
-    Task<ServiceDisplay?> GetServiceByIdAsync(int serviceId);
+    Task DeleteServiceAsync(Guid serviceId);
+    Task<ServiceDisplay?> GetServiceByIdAsync(Guid serviceId);
     Task UpdateServiceAsync(UpdateService command);
-    Task<ProviderDisplay?> GetProviderByIdAsync(int providerId);
-    Task DeleteProviderAsync(int providerId);
+    Task<ProviderDisplay?> GetProviderByIdAsync(Guid providerId);
+    Task DeleteProviderAsync(Guid providerId);
 }

@@ -2,5 +2,5 @@ namespace ServicePlace.Core.Results;
 
 public class CreateServiceResult
 {
-    public int ServiceId { set; get; }
+    public Guid ServiceId { set; get; }
 }

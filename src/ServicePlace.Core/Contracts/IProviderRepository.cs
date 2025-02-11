@@ -7,11 +7,11 @@ namespace ServicePlace.Core.Contracts;
 public interface IProviderRepository
 {
     Task<PagingResult<ProviderDisplay>> GetAllProvidersAsync(ProviderPagingQuery query);
-    Task<IEnumerable<ProviderDisplay>> GetProviderByServiceIdAsync(int serviceId);
-    Task<ProviderDomain?> GetProviderAsync(int id);
+    Task<IEnumerable<ProviderDisplay>> GetProviderByServiceIdAsync(Guid serviceId);
+    Task<ProviderDomain?> GetProviderAsync(Guid id);
     void UpdateProvider(ProviderDomain provider);
-    Task<bool> AnyDuplicateAsync(string? name, int? serviceId);
+    Task<bool> AnyDuplicateAsync(string? name, Guid? serviceId);
     Task AddProviderAsync(ProviderDomain newProvider);
-    Task<ProviderDisplay?> GetProviderByIdAsync(int providerId);
-    Task DeleteAsync(int providerId);
+    Task<ProviderDisplay?> GetProviderByIdAsync(Guid providerId);
+    Task DeleteAsync(Guid providerId);
 }

@@ -32,13 +32,14 @@ public class ServiceRepository : IServiceRepository
     {
         var service = new Service
         {
+            Id = serviceDomain.Id,
             Name = serviceDomain.Name
         };
 
         await _context.Services.AddAsync(service);
     }
 
-    public async Task DeleteAsync(int serviceId)
+    public async Task DeleteAsync(Guid serviceId)
     {
         var service = await _context.Services.Where(x => x.Id == serviceId).FirstOrDefaultAsync();
 
@@ -50,7 +51,7 @@ public class ServiceRepository : IServiceRepository
         _context.Services.Update(service);
     }
 
-    public async Task<ServiceDisplay?> GetServiceByIdAsync(int serviceId)
+    public async Task<ServiceDisplay?> GetServiceByIdAsync(Guid serviceId)
     {
         var service = await _context.Services
             .Where(x => x.Id == serviceId)

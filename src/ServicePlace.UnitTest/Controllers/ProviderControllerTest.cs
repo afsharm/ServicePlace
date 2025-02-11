@@ -49,20 +49,6 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     }
 
     [Fact]
-    public async Task create_provider_does_not_throw_exception_on_basic_conditions()
-    {
-        //Arrange
-        using var context = Fixture.CreateContext();
-        var controller = BuildProviderController(context);
-
-        //Action
-        var exception = await Record.ExceptionAsync(() => controller.CreateProviderAsync(new CreateProviderCommand { ServiceId = 1, Name = "Provider ABC" }));
-
-        //Assert
-        Assert.Null(exception);
-    }
-
-    [Fact]
     public async Task create_provider_throw_exception_when_command_is_null()
     {
         //Arrange
@@ -95,8 +81,8 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
     }
 
     [Theory]
-    [InlineData("-1")]
-    [InlineData("0")]
+    [InlineData("4c195c84-db0a-490e-912f-5068d8a26570")]
+    [InlineData("c795ec7f-a535-433c-a6d3-9960121257f8")]
     public async Task create_a_provider_with_invalid_service_id_should_not_work(string value)
     {
         //Arrange
@@ -104,7 +90,7 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
         var controller = BuildProviderController(context);
 
         //Action
-        var serivceId = Convert.ToInt32(value);
+        var serivceId = new Guid(value);
         var exception = await Record.ExceptionAsync(() => controller.CreateProviderAsync(new CreateProviderCommand { ServiceId = serivceId, Name = "ABC" }));
 
         //Assert
@@ -113,45 +99,43 @@ public class ProviderControllerTest : IClassFixture<TestDatabaseFixture>
         Assert.Equal("An error occurred while saving the entity changes. See the inner exception for details.", exception.Message);
     }
 
-    //todo: uncomment
-    // [Fact]
-    // public async Task create_a_simple_provider_works()
-    // {
-    //     //Arrange
-    //     using var context = Fixture.CreateContext();
-    //     var controllers = BuildProviderAndServiceController(context);
-    //     var result = await controllers.Service.CreateServiceAsync(new CreateService { Name = Guid.NewGuid().ToString() });
-    //     var createProviderCommand = new CreateProviderCommand { ServiceId = result.ServiceId, Name = Guid.NewGuid().ToString() };
+    [Fact]
+    public async Task create_a_simple_provider_works()
+    {
+        //Arrange
+        using var context = Fixture.CreateContext();
+        var controllers = BuildProviderAndServiceController(context);
+        var result = await controllers.Service.CreateServiceAsync(new CreateService { Name = Guid.NewGuid().ToString() });
+        var createProviderCommand = new CreateProviderCommand { ServiceId = result.ServiceId, Name = Guid.NewGuid().ToString() };
 
-    //     //Action
-    //     var exception = await Record.ExceptionAsync(() => controllers.Provider.CreateProviderAsync(createProviderCommand));
+        //Action
+        var exception = await Record.ExceptionAsync(() => controllers.Provider.CreateProviderAsync(createProviderCommand));
 
-    //     //Assert
-    //     Assert.Null(exception);
-    // }
+        //Assert
+        Assert.Null(exception);
+    }
 
-    //todo: uncomment
-    // [Theory]
-    // [InlineData("Best Washers")]
-    // [InlineData("Fire fighters")]
-    // [InlineData("Sky line")]
-    // [InlineData("Dr. Brown")]
-    // [InlineData("Street Beauty")]
-    // [InlineData("0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789")]
-    // public async Task while_creating_a_provider_allowed_provider_names_should_be_allowed(string value)
-    // {
-    //     //Arrange
-    //     using var context = Fixture.CreateContext();
-    //     var controllers = BuildProviderAndServiceController(context);
-    //     var result = await controllers.Service.CreateServiceAsync(new CreateService { Name = Guid.NewGuid().ToString() });
-    //     var createProviderCommand = new CreateProviderCommand { ServiceId = result.ServiceId, Name = value };
+    [Theory]
+    [InlineData("Best Washers")]
+    [InlineData("Fire fighters")]
+    [InlineData("Sky line")]
+    [InlineData("Dr. Brown")]
+    [InlineData("Street Beauty")]
+    [InlineData("0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789")]
+    public async Task while_creating_a_provider_allowed_provider_names_should_be_allowed(string value)
+    {
+        //Arrange
+        using var context = Fixture.CreateContext();
+        var controllers = BuildProviderAndServiceController(context);
+        var result = await controllers.Service.CreateServiceAsync(new CreateService { Name = Guid.NewGuid().ToString() });
+        var createProviderCommand = new CreateProviderCommand { ServiceId = result.ServiceId, Name = value };
 
-    //     //Action
-    //     var exception = await Record.ExceptionAsync(() => controllers.Provider.CreateProviderAsync(createProviderCommand));
+        //Action
+        var exception = await Record.ExceptionAsync(() => controllers.Provider.CreateProviderAsync(createProviderCommand));
 
-    //     //Assert
-    //     Assert.Null(exception);
-    // }
+        //Assert
+        Assert.Null(exception);
+    }
 
     [Theory]
     [InlineData("0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789x",
