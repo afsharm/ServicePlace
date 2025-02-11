@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using ServicePlace.Model.Commands;
-using ServicePlace.Service.Contracts;
-using ServicePlace.Model.Queries;
-using ServicePlace.Model.Results;
-using ServicePlace.Data;
+using ServicePlace.Core.Commands;
+using ServicePlace.Core.Contracts;
+using ServicePlace.Core.Queries;
+using ServicePlace.Core.Results;
 using ServicePlace.Data.Contracts;
 
 namespace ServicePlace.Web.Controllers;
@@ -31,7 +30,7 @@ public class ServiceController : ControllerBase
     }
 
     [HttpGet("{serviceId}")]
-    public async Task<IActionResult> GetServiceByIdAsync([FromRoute] int serviceId)
+    public async Task<IActionResult> GetServiceByIdAsync([FromRoute] Guid serviceId)
     {
         var response = await _commonService.GetServiceByIdAsync(serviceId);
         return Ok(response);
@@ -42,13 +41,13 @@ public class ServiceController : ControllerBase
     {
         var result = await _commonService.CreateServiceAsync(command);
 
-        //SaveChanges is called in the service layer directly in order to get the DB generated Id
+        await _unitOfWork.SaveChangesAsync();
 
         return result;
     }
 
     [HttpDelete]
-    public async Task<IActionResult> DeleteServiceAsync([FromQuery] int serviceId)
+    public async Task<IActionResult> DeleteServiceAsync([FromQuery] Guid serviceId)
     {
         await _commonService.DeleteServiceAsync(serviceId);
 

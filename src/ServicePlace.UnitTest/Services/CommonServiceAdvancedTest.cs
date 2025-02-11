@@ -2,10 +2,10 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using ServicePlace.Data;
 using ServicePlace.Data.Repositories;
-using ServicePlace.Model.Commands;
+using ServicePlace.Core.Commands;
 using ServicePlace.Data.Contracts;
-using ServicePlace.Service.Contracts;
-using ServicePlace.Service;
+using ServicePlace.Core.Contracts;
+using ServicePlace.Core;
 using ServicePlace.UnitTest.Common;
 
 namespace ServicePlace.UnitTest.Services;
@@ -24,7 +24,7 @@ public class CommonServiceAdvancedTest : IClassFixture<TestDatabaseFixture>
         IServiceRepository serviceRepository = new ServiceRepository(context);
         IProviderRepository providerRepository = new ProviderRepository(context);
         IUnitOfWork unitOfWork = new UnitOfWork(context);
-        ICommonService commonService = new CommonService(logger, serviceRepository, providerRepository, unitOfWork);
+        ICommonService commonService = new CommonService(logger, serviceRepository, providerRepository);
         return commonService;
     }
 

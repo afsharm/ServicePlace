@@ -3,6 +3,8 @@ A market place for services
 
 Wants to demonstrate testing in dotnet.
 
+Based on clean architecture.
+
 [![build](https://github.com/afsharm/ServicePlace/actions/workflows/build-validation.yml/badge.svg)](https://github.com/afsharm/ServicePlace/actions/workflows/build-validation.yml)
 
 ## instructions

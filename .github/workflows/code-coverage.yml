@@ -9,7 +9,7 @@ on:
     - '**.csproj'
 
 env:
-  DOTNET_VERSION: '7.0.203' # The .NET SDK version to use
+  DOTNET_VERSION: '8.0.405' # The .NET SDK version to use
 
 jobs:
   build:
@@ -45,7 +45,7 @@ jobs:
         dotnet reportgenerator -reports:${{ github.workspace }}/Tests/Coverage.cobertura.xml -targetdir:"${{ github.workspace }}/Tests/coveragereport" -reporttypes:Html
 
     - name: Archive code coverage results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: code-coverage-report
         path: ${{ github.workspace }}/Tests/

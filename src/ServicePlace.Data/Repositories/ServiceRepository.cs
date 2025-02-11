@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using ServicePlace.Model.Queries;
-using ServicePlace.Data.Contracts;
-using ServicePlace.Model.Entities;
-using ServicePlace.Model.Commands;
+using ServicePlace.Core.Queries;
+using ServicePlace.Data.DatabaseEntities;
+using ServicePlace.Core.Commands;
+using ServicePlace.Core.Contracts;
+using ServicePlace.Core.DomainEntities;
 
 namespace ServicePlace.Data.Repositories;
 
@@ -27,12 +28,18 @@ public class ServiceRepository : IServiceRepository
             .ToListAsync();
     }
 
-    public async Task AddAsync(Service service)
+    public async Task AddAsync(ServiceDomain serviceDomain)
     {
+        var service = new Service
+        {
+            Id = serviceDomain.Id,
+            Name = serviceDomain.Name
+        };
+
         await _context.Services.AddAsync(service);
     }
 
-    public async Task DeleteAsync(int serviceId)
+    public async Task DeleteAsync(Guid serviceId)
     {
         var service = await _context.Services.Where(x => x.Id == serviceId).FirstOrDefaultAsync();
 
@@ -44,7 +51,7 @@ public class ServiceRepository : IServiceRepository
         _context.Services.Update(service);
     }
 
-    public async Task<ServiceDisplay?> GetServiceByIdAsync(int serviceId)
+    public async Task<ServiceDisplay?> GetServiceByIdAsync(Guid serviceId)
     {
         var service = await _context.Services
             .Where(x => x.Id == serviceId)

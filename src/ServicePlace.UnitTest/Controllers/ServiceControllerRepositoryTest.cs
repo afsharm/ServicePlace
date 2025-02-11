@@ -3,10 +3,10 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using ServicePlace.Data;
 using ServicePlace.Data.Contracts;
-using ServicePlace.Model.Commands;
-using ServicePlace.Model.Queries;
-using ServicePlace.Service;
-using ServicePlace.Service.Contracts;
+using ServicePlace.Core.Commands;
+using ServicePlace.Core.Queries;
+using ServicePlace.Core;
+using ServicePlace.Core.Contracts;
 using ServicePlace.Web.Controllers;
 
 namespace ServicePlace.UnitTest.Controllers;
@@ -20,7 +20,7 @@ public class ServiceControllerRepositoryTest
             serviceRepository = Mock.Of<IServiceRepository>();
 
         ICommonService commonService = new CommonService(Mock.Of<ILogger<CommonService>>(),
-            serviceRepository, Mock.Of<IProviderRepository>(), Mock.Of<IUnitOfWork>());
+            serviceRepository, Mock.Of<IProviderRepository>());
         var serviceController = new ServiceController(Mock.Of<ILogger<ServiceController>>(), commonService, Mock.Of<IUnitOfWork>());
         return serviceController;
     }
